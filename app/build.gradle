@@ -18,12 +18,44 @@ android {
         }
     }
 }
-
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+    maven {
+        url "https://raw.github.com/embarkmobile/zxing-android-minimal/mvn-repo/maven-repository/"
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
-    compile "de.mrmaffen:vlc-android-sdk:1.9.8"
+    /**********************第三方库-开始********************/
+    // Zxing libraries
+    compile 'com.embarkmobile:zxing-android-minimal:2.0.0@aar'
+    compile 'com.embarkmobile:zxing-android-integration:2.0.0@aar'
+    compile 'com.google.zxing:core:3.0.1'
+
+    // Ijkplayer libraries
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.0'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.0'
+
     compile 'com.facebook.fresco:fresco:0.12.0'
+    compile 'com.zhy:okhttputils:2.6.2'
+
+    // ui module
+    compile 'net.qiujuer.genius:ui:2.0.0-beta8'
+    compile 'net.qiujuer.genius:res:2.0.0-beta8'
+    // ui blur module
+    compile 'net.qiujuer.genius:blur:2.0.0'
+    // ui kit module
+    compile 'net.qiujuer.genius:kit:2.0.0-beta8'
+
+    // dialog
+    compile 'com.avast:android-styled-dialogs:2.3.3'
+
+    compile 'com.github.kibotu:android-utils:1.0.0'
+    /**********************第三方库-结束********************/
+
 }
