@@ -1,24 +1,19 @@
 package com.tencent.streamshare.Activity;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
-import android.view.Surface;
-import android.view.SurfaceView;
-import android.view.TextureView;
 import android.view.View;
 
-import com.pili.pldroid.player.PLMediaPlayer;
-import com.pili.pldroid.player.widget.PLVideoTextureView;
-import com.pili.pldroid.player.widget.PLVideoView;
 import com.tencent.streamshare.Controller.PlayerController;
 import com.tencent.streamshare.R;
 
-import java.io.IOException;
+
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.widget.VideoView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -44,7 +39,6 @@ public class PlayerActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
-    private PLVideoTextureView mVideoView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -62,7 +56,6 @@ public class PlayerActivity extends AppCompatActivity {
                     | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
     };
-    private View mControlsView;
     private final Runnable mShowPart2Runnable = new Runnable() {
         @Override
         public void run() {
@@ -96,6 +89,8 @@ public class PlayerActivity extends AppCompatActivity {
         }
     };
 
+    private VideoView mVideoView;
+    private View mControlsView;
     private PlayerController mPlayerController;
 
     @Override
@@ -106,21 +101,36 @@ public class PlayerActivity extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-//        mVideoView = (PLVideoTextureView) findViewById(R.id.PLVideoTextureView);
-        SurfaceView surfaceView = (SurfaceView) findViewById(R.id.PLVideoSurface);
-//        TextureView textureView = (TextureView) findViewById(R.id.PLVideoTexture);
-        Intent intent = getIntent();
-//        mPlayerController = new PlayerController(intent.getStringExtra(STREAM_URL_TAG),mVideoView);
-//        mPlayerController.init().start();
-        PLMediaPlayer mMediaPlayer = new PLMediaPlayer();
-        try {
-            mMediaPlayer.setDataSource(intent.getStringExtra(STREAM_URL_TAG));
-        } catch (IOException e) {
-            e.printStackTrace();
+//        // #1.1
+////        mVideoView = (PLVideoTextureView) findViewById(R.id.PLVideoTextureView);
+////        TextureView textureView = (TextureView) findViewById(R.id.PLVideoTexture);
+//
+//        // #2.1
+//        SurfaceView surfaceView = (SurfaceView) findViewById(R.id.PLVideoSurface);
+//
+//        // #1.2
+////        mPlayerController = new PlayerController(getIntent().getStringExtra(STREAM_URL_TAG),mVideoView);
+////        mPlayerController.init().start();
+//
+//        // #2.2
+//        PLMediaPlayer mMediaPlayer = new PLMediaPlayer();
+//        try {
+//            mMediaPlayer.setDataSource(getIntent().getStringExtra(STREAM_URL_TAG));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        mMediaPlayer.setDisplay(surfaceView.getHolder());
+//        mMediaPlayer.start();
+//        //        mMediaPlayer.setDisplay(new Surface(textureView.getSurfaceTexture()));
+
+        if (io.vov.vitamio.LibsChecker.checkVitamioLibs(this)){
+            mVideoView = (VideoView) findViewById(R.id.surface_view);
+            mVideoView.requestFocus();
+            mVideoView.setVideoChroma(MediaPlayer.VIDEOCHROMA_RGB565);
+            mVideoView.setVideoPath(getIntent().getStringExtra(STREAM_URL_TAG));
+            mVideoView.start();
         }
-        mMediaPlayer.setDisplay(surfaceView.getHolder());
-        mMediaPlayer.start();
-//        mMediaPlayer.setDisplay(new Surface(textureView.getSurfaceTexture()));
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.

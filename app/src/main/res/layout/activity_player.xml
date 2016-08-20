@@ -7,21 +7,12 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-    <!-- <com.pili.pldroid.player.widget.PLVideoTextureView
-        android:name="@+id/PLVideoTextureView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center" />-->
 
-  <SurfaceView
-        android:id="@+id/PLVideoSurface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <!--<TextureView
-      android:id="@+id/PLVideoTexture"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />-->
+    <io.vov.vitamio.widget.VideoView
+        android:id="@+id/surface_view"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
   <!-- This FrameLayout insets its children based on system windows using
        android:fitsSystemWindows. -->
