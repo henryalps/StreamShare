@@ -25,9 +25,11 @@
         </activity>
         <activity
             android:name=".Activity.PlayerActivity"
-            droid:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
             android:launchMode="singleTop"
             android:label="@string/title_activity_player"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme"/>
     </application>
 
