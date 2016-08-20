@@ -7,11 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
+import android.view.Surface;
+import android.view.SurfaceView;
+import android.view.TextureView;
 import android.view.View;
 
+import com.pili.pldroid.player.PLMediaPlayer;
+import com.pili.pldroid.player.widget.PLVideoTextureView;
 import com.pili.pldroid.player.widget.PLVideoView;
 import com.tencent.streamshare.Controller.PlayerController;
 import com.tencent.streamshare.R;
+
+import java.io.IOException;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -37,7 +44,7 @@ public class PlayerActivity extends AppCompatActivity {
      */
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
-    private PLVideoView mVideoView;
+    private PLVideoTextureView mVideoView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -99,11 +106,21 @@ public class PlayerActivity extends AppCompatActivity {
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
-        mVideoView = (PLVideoView) findViewById(R.id.PLVideoView);
-
+//        mVideoView = (PLVideoTextureView) findViewById(R.id.PLVideoTextureView);
+        SurfaceView surfaceView = (SurfaceView) findViewById(R.id.PLVideoSurface);
+//        TextureView textureView = (TextureView) findViewById(R.id.PLVideoTexture);
         Intent intent = getIntent();
-        mPlayerController = new PlayerController(intent.getStringExtra(STREAM_URL_TAG),mVideoView);
-        mPlayerController.start();
+//        mPlayerController = new PlayerController(intent.getStringExtra(STREAM_URL_TAG),mVideoView);
+//        mPlayerController.init().start();
+        PLMediaPlayer mMediaPlayer = new PLMediaPlayer();
+        try {
+            mMediaPlayer.setDataSource(intent.getStringExtra(STREAM_URL_TAG));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mMediaPlayer.setDisplay(surfaceView.getHolder());
+        mMediaPlayer.start();
+//        mMediaPlayer.setDisplay(new Surface(textureView.getSurfaceTexture()));
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
@@ -117,7 +134,7 @@ public class PlayerActivity extends AppCompatActivity {
         // Trigger the initial hide() shortly after the activity has been
         // created, to briefly hint to the user that UI controls
         // are available.
-        delayedHide(100);
+        //delayedHide(100);
     }
 
     private void toggle() {

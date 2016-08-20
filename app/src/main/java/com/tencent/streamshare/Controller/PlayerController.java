@@ -1,6 +1,9 @@
 package com.tencent.streamshare.Controller;
 
+import android.util.Log;
+
 import com.ihongqiqu.util.StringUtils;
+import com.pili.pldroid.player.widget.PLVideoTextureView;
 import com.pili.pldroid.player.widget.PLVideoView;
 
 /**
@@ -9,10 +12,10 @@ import com.pili.pldroid.player.widget.PLVideoView;
  */
 public class PlayerController {
     private String mStreamUrl = "";
-    private PLVideoView mVideoView;
+    private PLVideoTextureView mVideoView;
     private boolean mHasInit = false;
 
-    public PlayerController(String mStreamUrl, PLVideoView mVideoView) {
+    public PlayerController(String mStreamUrl, PLVideoTextureView mVideoView) {
         this.mStreamUrl = mStreamUrl;
         this.mVideoView = mVideoView;
     }
@@ -28,8 +31,15 @@ public class PlayerController {
     }
 
     public void start() {
-        if (mHasInit) {
+        if (ismHasInit()) {
             mVideoView.start();
         }
+    }
+
+    public boolean ismHasInit() {
+        if (!mHasInit) {
+            Log.e("henryrhe", "播放器没有初始化,调用init()初始化");
+        }
+        return mHasInit;
     }
 }
