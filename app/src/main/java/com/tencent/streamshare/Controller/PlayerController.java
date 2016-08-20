@@ -3,8 +3,7 @@ package com.tencent.streamshare.Controller;
 import android.util.Log;
 
 import com.ihongqiqu.util.StringUtils;
-import com.pili.pldroid.player.widget.PLVideoTextureView;
-import com.pili.pldroid.player.widget.PLVideoView;
+import io.vov.vitamio.widget.VideoView;
 
 /**
  * Created by henryrhe on 2016/8/20.
@@ -12,10 +11,10 @@ import com.pili.pldroid.player.widget.PLVideoView;
  */
 public class PlayerController {
     private String mStreamUrl = "";
-    private PLVideoTextureView mVideoView;
+    private VideoView mVideoView;
     private boolean mHasInit = false;
 
-    public PlayerController(String mStreamUrl, PLVideoTextureView mVideoView) {
+    public PlayerController(String mStreamUrl, VideoView mVideoView) {
         this.mStreamUrl = mStreamUrl;
         this.mVideoView = mVideoView;
     }
