@@ -3,7 +3,7 @@ OMG.Graduate @2016 ©Tencent.com
 ----
 **使用的框架**
 1 2位码 [zxing](https://github.com/zxing/zxing)
-2 播放器 [ijkplayer](https://github.com/Bilibili/ijkplayer)
+2 播放器 [PLDroidPlayer](https://github.com/pili-engineering/PLDroidPlayer)
 3 图片解析框架 [fresco](https://github.com/facebook/fresco)
 4 网络框架 [OKhttp](https://github.com/hongyangAndroid/okhttputils)
 5 UI [Android-Genius](https://github.com/qiujuer/Genius-Android)

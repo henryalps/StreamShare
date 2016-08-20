@@ -38,8 +38,8 @@ dependencies {
     compile 'com.google.zxing:core:3.0.1'
 
     // Ijkplayer libraries
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.0'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.0'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.0'
+//    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.0'
 
     compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.zhy:okhttputils:2.6.2'
