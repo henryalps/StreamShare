@@ -41,13 +41,13 @@ dependencies {
     //    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.0'
     compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.zhy:okhttputils:2.6.2'
-    // ui module
-    compile 'net.qiujuer.genius:ui:2.0.0-beta8'
-    compile 'net.qiujuer.genius:res:2.0.0-beta8'
-    // ui blur module
-    compile 'net.qiujuer.genius:blur:2.0.0'
-    // ui kit module
-    compile 'net.qiujuer.genius:kit:2.0.0-beta8'
+//    // ui module
+//    compile 'net.qiujuer.genius:ui:2.0.0-beta8'
+//    compile 'net.qiujuer.genius:res:2.0.0-beta8'
+//    // ui blur module
+//    compile 'net.qiujuer.genius:blur:2.0.0'
+//    // ui kit module
+//    compile 'net.qiujuer.genius:kit:2.0.0-beta8'
     // dialog
     compile 'com.avast:android-styled-dialogs:2.3.3'
     compile 'com.github.kibotu:android-utils:1.0.0'
