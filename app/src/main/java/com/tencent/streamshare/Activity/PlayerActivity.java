@@ -5,10 +5,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
-import com.tencent.streamshare.Controller.PlayerController;
 import com.tencent.streamshare.R;
 
 
@@ -91,50 +92,63 @@ public class PlayerActivity extends AppCompatActivity {
 
     private VideoView mVideoView;
     private View mControlsView;
-    private PlayerController mPlayerController;
+    private ImageView mBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_player);
 
-        mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
-//        // #1.1
-////        mVideoView = (PLVideoTextureView) findViewById(R.id.PLVideoTextureView);
-////        TextureView textureView = (TextureView) findViewById(R.id.PLVideoTexture);
-//
-//        // #2.1
-//        SurfaceView surfaceView = (SurfaceView) findViewById(R.id.PLVideoSurface);
-//
-//        // #1.2
-////        mPlayerController = new PlayerController(getIntent().getStringExtra(STREAM_URL_TAG),mVideoView);
-////        mPlayerController.init().start();
-//
-//        // #2.2
-//        PLMediaPlayer mMediaPlayer = new PLMediaPlayer();
-//        try {
-//            mMediaPlayer.setDataSource(getIntent().getStringExtra(STREAM_URL_TAG));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        mMediaPlayer.setDisplay(surfaceView.getHolder());
-//        mMediaPlayer.start();
-//        //        mMediaPlayer.setDisplay(new Surface(textureView.getSurfaceTexture()));
+        initView();
+        startPlay();
+    }
 
-        if (io.vov.vitamio.LibsChecker.checkVitamioLibs(this)){
-            mVideoView = (VideoView) findViewById(R.id.surface_view);
-            mVideoView.requestFocus();
-            mVideoView.setVideoChroma(MediaPlayer.VIDEOCHROMA_RGB565);
-            mVideoView.setVideoPath(getIntent().getStringExtra(STREAM_URL_TAG));
-            mVideoView.start();
-        }
+    private void initView() {
+        initPlayerView();
+
+        mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
+        mBackBtn.setScaleX(-1);
+        mBackBtn.setScaleY(1);
+        mBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitPage();
+            }
+        });
+
+        mControlsView = findViewById(R.id.fullscreen_content_controls);
+        mVisible = true;
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+    }
+
+    private void initPlayerView() {
+        if (io.vov.vitamio.LibsChecker.checkVitamioLibs(this)){
+            mVideoView = (VideoView) findViewById(R.id.surface_view);
+            mVideoView.requestFocus();
+            mVideoView.setVideoChroma(MediaPlayer.VIDEOCHROMA_RGB565);
+            mVideoView.setVideoPath(getIntent().getStringExtra(STREAM_URL_TAG));
+        }
+    }
+
+    private void startPlay()  {
+        if (mVideoView != null) {
+            mVideoView.start();
+        }
+    }
+
+    private void stopPlay() {
+        if (mVideoView != null) {
+            mVideoView.pause();
+        }
+    }
+
+    private void exitPage() {
+        stopPlay();
+        finish();
     }
 
     @Override
@@ -188,5 +202,15 @@ public class PlayerActivity extends AppCompatActivity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exitPage();
+            return true;
+        } else  {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }
