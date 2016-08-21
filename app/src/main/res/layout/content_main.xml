@@ -12,6 +12,7 @@
     tools:context="com.tencent.streamshare.MainActivity"
     tools:showIn="@layout/activity_main">
     <ListView
+        android:id="@+id/steam_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
 
