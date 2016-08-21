@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient;
  * Created by zhaoyongfei on 2016/8/20.
  */
 public class MyApplication extends Application {
+    private String mAppId = "";
     @Override
     public void onCreate()
     {
@@ -26,5 +27,13 @@ public class MyApplication extends Application {
 
         OkHttpUtils.initClient(okHttpClient);
 
+    }
+
+    public String getmAppId() {
+        return mAppId;
+    }
+
+    public void setmAppId(String mAppId) {
+        this.mAppId = mAppId;
     }
 }

@@ -30,6 +30,7 @@ public class Constants {
     public final static int REQ_TYPE_POST = 0x01;
 
     public final static int CODE_RESULT_JSON_FAIL = 0x10; // 不会和后台的网络错误码冲突
+    public final static int CODE_RESULT_ANALYSIS_FAIL = 0x11;
 
     public final static int CODE_LOGIN_SUCCESS = 0;
     public final static int CODE_LOGIN_IS_VIP = 1;
