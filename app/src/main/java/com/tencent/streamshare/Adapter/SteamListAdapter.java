@@ -90,19 +90,24 @@ public class SteamListAdapter extends BaseAdapter {
 			Uri uri = Uri.parse(mStreamInfo.getmImgUrl());
 			holder.mPhoto.setImageURI(uri);
 		}
-		holder.steamView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (!StringUtils.isEmpty(mStreamInfo.getmUrl())) {
-					User.getInstance().setmCurrentStream(mStreamInfo);
-					Intent intent = new Intent();
-					intent.setClass(mContext, PlayerActivity.class);
-					intent.putExtra(PlayerActivity.STREAM_URL_TAG, mStreamInfo.getmUrl());
-					mContext.startActivity(intent);
-				}
-			}
+		if(mStreamInfo.ismHasRight()&&!User.getInstance().ismIsVip()) {
 		}
-		);
+		else {
+			holder.steamView.setOnClickListener(new View.OnClickListener() {
+													@Override
+													public void onClick(View view) {
+														if (!StringUtils.isEmpty(mStreamInfo.getmUrl())) {
+															User.getInstance().setmCurrentStream(mStreamInfo);
+															Intent intent = new Intent();
+															intent.setClass(mContext, PlayerActivity.class);
+															intent.putExtra(PlayerActivity.STREAM_URL_TAG, mStreamInfo.getmUrl());
+															mContext.startActivity(intent);
+														}
+													}
+												}
+			);
+		}
+
 
 
 

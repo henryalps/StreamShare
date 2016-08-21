@@ -1,5 +1,6 @@
 package com.tencent.streamshare.Network.RequestBuilder;
 
+import com.ihongqiqu.util.StringUtils;
 import com.tencent.streamshare.Model.User;
 
 import org.json.JSONException;
@@ -13,7 +14,11 @@ public class ExitStreamRequestBuilder extends BaseRequestBuilder {
     protected JSONObject doBuilder(JSONObject forReturn) throws JSONException {
         forReturn.put("userid", User.getInstance().getmId());
         forReturn.put("streamid", User.getInstance().getmCurrentStream().getmId());
-        forReturn.put("groupkey", User.getInstance().getGroupkey());
+        String groupKey = User.getInstance().getGroupkey();
+        if (StringUtils.isEmpty(groupKey)) {
+            groupKey = User.getInstance().getmId() + "+" +User.getInstance().getmCurrentStream().getmId();
+        }
+        forReturn.put("groupkey", groupKey);
         return forReturn;
     }
 }

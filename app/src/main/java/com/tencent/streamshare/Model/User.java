@@ -5,7 +5,7 @@ package com.tencent.streamshare.Model;
  * 用户模型
  */
 public class User extends BaseUser{
-    private static User mInstance;
+    private static User mInstance = new User();
     private String mNickName = "guest";
     private String mPasswd = "";
     private boolean mIsVip = false;
@@ -14,7 +14,7 @@ public class User extends BaseUser{
     /*一次只能播放一个视频*/
     private StreamInfo mCurrentStream;
 
-    public User() {
+    private User() {
 
     }
 

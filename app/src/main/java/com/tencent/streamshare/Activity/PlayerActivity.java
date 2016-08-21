@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.tencent.streamshare.Adapter.UserListAdapter;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.tencent.streamshare.Model.BaseUser;
+import com.tencent.streamshare.Model.StreamInfo;
 import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.MyApplication;
 import com.tencent.streamshare.Network.GlobalNetworkHelper;
@@ -117,7 +118,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private VideoView mVideoView;
     private View mControlsView;
-    private ImageView mBackBtn;
+    private Button mBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,16 +132,17 @@ public class PlayerActivity extends AppCompatActivity {
     private void initView() {
         initPlayerView();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
-        mBackBtn.setScaleX(-1);
-        mBackBtn.setScaleY(1);
+//        mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
+//        mBackBtn.setScaleX(-1);
+//        mBackBtn.setScaleY(1);
+        mBackBtn = (Button) findViewById(R.id.return_btn);
         mBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 exitPage();
             }
         });
-        WatchUser = (Button)findViewById(R.id.user_num) ;
+        WatchUser = (Button)findViewById(R.id.return_btn) ;
         WatchUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +188,7 @@ public class PlayerActivity extends AppCompatActivity {
         if (mVideoView != null) {
             mVideoView.pause();
         }
-        User.getInstance().setmCurrentStream(null); // 退出播放流时必须清空当前播放流信息
+//        User.getInstance().setmCurrentStream(new StreamInfo()); // 退出播放流时必须清空当前播放流信息
         new GlobalNetworkHelper(this, Constants.URL_EXIT_STREAM)
                 .addRequest(new ExitStreamRequestBuilder().build())
                 .addAnalyser(new ExitStreamAnalyser(new ResultListener() {
