@@ -51,6 +51,8 @@ dependencies {
     // dialog
     compile 'com.avast:android-styled-dialogs:2.3.3'
     compile 'com.github.kibotu:android-utils:1.0.0'
+    compile 'com.wang.avi:library:2.1.2'
+    compile 'com.sdsmdg.tastytoast:tastytoast:0.0.4'
     /**********************第三方库-结束********************/
     compile project(':vitamiolib')
 }
