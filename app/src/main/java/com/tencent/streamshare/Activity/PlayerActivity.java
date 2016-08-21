@@ -1,6 +1,7 @@
 package com.tencent.streamshare.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,9 +9,11 @@ import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.tencent.streamshare.R;
+import com.tencent.streamshare.View.CustomDialog;
 
 
 import io.vov.vitamio.MediaPlayer;
@@ -21,6 +24,8 @@ import io.vov.vitamio.widget.VideoView;
  * status bar and navigation/system bar) with user interaction.
  */
 public class PlayerActivity extends AppCompatActivity {
+
+    private Button WatchUser,Share;
     public static final String STREAM_URL_TAG = "STREAM_URL_TAG";
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -106,15 +111,29 @@ public class PlayerActivity extends AppCompatActivity {
     private void initView() {
         initPlayerView();
 
-        //mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
-       // mBackBtn.setScaleX(-1);
-       // mBackBtn.setScaleY(1);
-       // mBackBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                exitPage();
-//            }
-//        });
+        mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
+        mBackBtn.setScaleX(-1);
+        mBackBtn.setScaleY(1);
+        mBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exitPage();
+            }
+        });
+        WatchUser = (Button)findViewById(R.id.user_num) ;
+        WatchUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //exitPage();
+            }
+        });
+        Share = (Button)findViewById(R.id.user_share);
+        Share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doDialog();
+            }
+        });
 
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mVisible = true;
@@ -149,6 +168,29 @@ public class PlayerActivity extends AppCompatActivity {
     private void exitPage() {
         stopPlay();
         finish();
+    }
+    private void doDialog(){
+
+        //返回验证码
+        CustomDialog.Builder builder = new CustomDialog.Builder(this);
+        builder.setMessage("二维码分享");
+        builder.setTitle("二维码分享");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                //设置你的操作事项
+            }
+        });
+
+        builder.setNegativeButton("取消",
+                        new android.content.DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+        builder.create().show();
+
     }
 
     @Override
