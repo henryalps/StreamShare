@@ -1,0 +1,93 @@
+package com.tencent.streamshare.Adapter;
+
+import android.accounts.Account;
+import android.content.Context;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.tencent.streamshare.Model.StreamInfo;
+
+import java.util.ArrayList;
+
+import com.tencent.streamshare.R;
+import com.tencent.streamshare.Utils.Util;
+
+/**
+ * Created by Administrator on 2016/8/21.
+ */
+public class SteamListAdapter extends BaseAdapter {
+	private LayoutInflater inflater;
+	private ArrayList<StreamInfo> mData = new ArrayList<StreamInfo>(); //UI
+	private Context mContext;
+
+	public SteamListAdapter(Context context, ArrayList<StreamInfo> data){
+		this.mContext=context;
+		this.mData =  data;
+	}
+
+
+
+	static class ViewHolder {
+		TextView name;
+		TextView count;
+		TextView time;
+		SimpleDraweeView mPhoto;
+
+	}
+
+	@Override
+	public StreamInfo getItem(int position) {
+		return (com.tencent.streamshare.Utils.Util.isEmpty(mData) || position <0 ||  position >= mData.size())?null:mData.get(position);
+	}
+
+	@Override
+	public int getCount() {
+		return Util.isEmpty(mData)?0:mData.size();
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+
+
+
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+
+		ViewHolder holder  =null;
+
+
+		if(holder == null ){
+			convertView = inflater.inflate(R.layout.steam_item_view, null);
+			holder = new ViewHolder();
+			holder.name = (TextView) convertView.findViewById(R.id.tv_steam_name);
+			holder.count = (TextView) convertView.findViewById(R.id.tv_stem_count);
+			holder.time = (TextView) convertView.findViewById(R.id.tv_steam_time);
+			holder.mPhoto = (SimpleDraweeView) convertView.findViewById(R.id.steam_image);
+		}
+		else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+		StreamInfo mStreamInfo = (StreamInfo)getItem(position);
+		holder.name.setText(mStreamInfo.getmName());
+		holder.count.setText(mStreamInfo.getmVIewCount());
+		holder.time.setText(Util.unix2dateFormat(mStreamInfo.getmTime()));
+		if(mStreamInfo.getmImgUrl()!=null){
+			Uri uri = Uri.parse(mStreamInfo.getmImgUrl());
+			holder.mPhoto.setImageURI(uri);
+		}
+
+		return convertView;
+
+	}
+
+
+}

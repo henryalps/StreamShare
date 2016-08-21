@@ -37,6 +37,9 @@ public class LoginActivity extends Activity implements ResultListener{
 		mPassText = (EditText)this.findViewById(R.id.QQ_password);
 		mPassText.setText("123456");
 		mLoginBtn = (Button) this.findViewById(R.id.btn_qqlogin);
+		mLoginBtn.setFocusable(true);
+		mLoginBtn.setFocusableInTouchMode(true);
+		mLoginBtn.requestFocus();
 		mLoginBtn.setOnClickListener(new View.OnClickListener(){
 
 			public void onClick(View v){
