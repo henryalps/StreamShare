@@ -12,9 +12,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"/>
 
-    <!-- The primary full-screen view. Tm_his can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+    <!-- The primary full-screen view-->
 
     <io.vov.vitamio.widget.VideoView
         android:id="@+id/surface_view"
