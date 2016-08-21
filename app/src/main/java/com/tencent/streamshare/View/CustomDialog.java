@@ -174,7 +174,7 @@ public class CustomDialog extends Dialog {
 			if (message != null) {
 
 				BitmapDrawable bd = (BitmapDrawable)context.getResources().getDrawable(R.drawable.qqvideo) ;
-				((SimpleDraweeView) layout.findViewById(R.id.message)).setImageBitmap(QRCodeUtil.createImage(message,300,300, bd.getBitmap()));
+				((SimpleDraweeView) layout.findViewById(R.id.message)).setImageBitmap(QRCodeUtil.createImage(message,300,300, null));//bd.getBitmap()
 			} else if (contentView != null) {
 				// if no message set
 				// add the contentView to the dialog body

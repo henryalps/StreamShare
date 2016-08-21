@@ -22,6 +22,7 @@ public class GetStreamAddressAnalyser extends BaseAnalyser {
         info.setmCouldShare(JSONUtils.getInt(data, "share", 0) == 1);
         User.getInstance().setmCurrentStream(info);
         User.getInstance().setGroupkey(JSONUtils.getString(data,"groupkey",""));
+        mListener.onSuccess(data);
         return true;
     }
 }

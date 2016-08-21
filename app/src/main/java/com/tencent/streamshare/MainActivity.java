@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
     private Button Qrcode;
     private ListView mSteamList;
     private SteamListAdapter mSteamListAdapter;
+    private Button Exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
         mIsVip =(SimpleDraweeView) this.findViewById(R.id.user_isvip);
         Qrcode = (Button)this.findViewById(R.id.titlebar_camera) ;
         mSteamList = (ListView)this.findViewById(R.id.steam_list);
+        Exit = (Button)this.findViewById(R.id.titlebar_exit);
        Qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,6 +70,12 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
 		integrator.initiateScan();
             }
             });
+        Exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         initView();
 

@@ -97,6 +97,7 @@ public class SteamListAdapter extends BaseAdapter {
 					User.getInstance().setmCurrentStream(mStreamInfo);
 					Intent intent = new Intent();
 					intent.setClass(mContext, PlayerActivity.class);
+					intent.putExtra(PlayerActivity.STREAM_URL_TAG, mStreamInfo.getmUrl());
 					mContext.startActivity(intent);
 				}
 			}
