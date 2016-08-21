@@ -18,4 +18,10 @@ public class Constants {
             "http://1.tv.ptyg.gitv.tv/i-tvbin/qtv_video/omgtrain/get_push_command";
     public final static String URL_EXIT_STREAM =
             "http://1.tv.ptyg.gitv.tv/i-tvbin/qtv_video/omgtrain/user_exit_stream";
+
+    public final static int CODE_RESULT_RET_SUCCESS = 0x00;
+//    public final static int CODE_RESULT_RET_FAIL = 0x01;
+    public final static int CODE_RESULT_STATE_SUCCESS = 0x00;
+
+    public final static int CODE_RESULT_IS_VIP = 0x01;
 }
