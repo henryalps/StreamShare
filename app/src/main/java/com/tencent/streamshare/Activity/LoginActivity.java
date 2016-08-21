@@ -6,17 +6,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+import com.sdsmdg.tastytoast.TastyToast;
 import com.tencent.streamshare.MainActivity;
+import com.tencent.streamshare.Model.User;
+import com.tencent.streamshare.Network.GlobalNetworkHelper;
+import com.tencent.streamshare.Network.Listener.ResultListener;
+import com.tencent.streamshare.Network.RequestBuilder.UserLoginRequestBuilder;
+import com.tencent.streamshare.Network.ResultAnalyser.UserLoginAnalyser;
 import com.tencent.streamshare.R;
+import com.tencent.streamshare.Utils.Constants;
+import com.tencent.streamshare.View.MaskLoadingView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * Created by Administrator on 2016/8/21.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends Activity implements ResultListener{
 	private final static String  TAG ="LoginActivity";
 	private EditText mUserText,mPassText;
 	private String mUserid,mPasswd;
@@ -27,7 +33,9 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		mUserText = (EditText)this.findViewById(R.id.QQ_number);
+		mUserText.setText("afeizaizhao");
 		mPassText = (EditText)this.findViewById(R.id.QQ_password);
+		mPassText.setText("123456");
 		mLoginBtn = (Button) this.findViewById(R.id.btn_qqlogin);
 		mLoginBtn.setFocusable(true);
 		mLoginBtn.setFocusableInTouchMode(true);
@@ -37,22 +45,41 @@ public class LoginActivity extends Activity {
 			public void onClick(View v){
 				mUserid = mUserText.getText().toString();
 				mPasswd = mPassText.getText().toString();
-				doLogin(mUserid,mPasswd);
+				User.getInstance().setmId(mUserid);
+				User.getInstance().setmPasswd(mPasswd);
+				doLogin();
 			}
 
 		});
 	}
-	private void doLogin(String userid,String passwd){
+	private void doLogin(){
+		showLoading();
+		new GlobalNetworkHelper(this, Constants.URL_USER_LOG_IN, Constants.REQ_TYPE_GET)
+			.addRequest(new UserLoginRequestBuilder().build())
+			.addAnalyser(new UserLoginAnalyser(this))
+			.start();
+	}
 
+	@Override
+	public void onSuccess(Object data) {
+		hideLoading();
 		Intent intent = new Intent();
 		intent.setClass(this, MainActivity.class);
 		startActivity(intent);
-//		IntentIntegrator integrator = new IntentIntegrator(LoginActivity.this);
-//		integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-//		integrator.setOrientationLocked(false);
-//		integrator.initiateScan();
-
 	}
 
+	@Override
+	public void onFail(int Code, String Msg) {
+		hideLoading();
+		TastyToast.makeText(this, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
+				"错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+	}
 
+	private void showLoading() {
+		((MaskLoadingView)findViewById(R.id.loading)).showLoading();
+	}
+
+	private void hideLoading() {
+		((MaskLoadingView)findViewById(R.id.loading)).dismissLoading();
+	}
 }

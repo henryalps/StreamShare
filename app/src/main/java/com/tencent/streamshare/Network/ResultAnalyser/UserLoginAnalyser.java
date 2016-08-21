@@ -28,6 +28,7 @@ public class UserLoginAnalyser implements ResultAnalyserInterface {
         User.getInstance().setmIsVip(JSONUtils.getInt(data, "vipflag", 0) == Constants.CODE_LOGIN_IS_VIP);
         User.getInstance().setmNickName(JSONUtils.getString(data, "nickname", "guest"));
         User.getInstance().setmHeadImagUrl(JSONUtils.getString(data, "head_img_url", ""));
+        mListener.onSuccess(data);
         return true;
     }
 }
