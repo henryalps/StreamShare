@@ -124,9 +124,9 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
         if (scanResult != null) {
             String barcodeStr = scanResult.getContents();
             if (barcodeStr.startsWith(Constants.PROTOCOL_HEADER)) {
-                barcodeStr=  barcodeStr.substring(Constants.PROTOCOL_HEADER.length(), barcodeStr.length());
+                final String token =  barcodeStr.substring(Constants.PROTOCOL_HEADER.length(), barcodeStr.length());
                 new GlobalNetworkHelper(this, Constants.URL_ATTAIN_STREAM_ADDRESS)
-                        .addRequest(new GetStreamAddressRequestBuilder().build())
+                        .addRequest(new GetStreamAddressRequestBuilder(token).build())
                         .addAnalyser(new GetStreamAddressAnalyser(new ResultListener() {
                             @Override
                             public void onSuccess(Object data) {
