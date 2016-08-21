@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.tencent.streamshare.Model.BaseUser;
 import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.Utils.Util;
@@ -20,15 +21,15 @@ import java.util.ArrayList;
  */
 public class UserListAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
-	private ArrayList<User> mData = new ArrayList<User>(); //UI
+	private ArrayList<BaseUser> mData = new ArrayList<BaseUser>(); //UI
 	private Context mContext;
 
-	public UserListAdapter(Context context, ArrayList<User> data){
+	public UserListAdapter(Context context, ArrayList<BaseUser> data){
 		this.mContext=context;
 		this.mData =  data;
 	}
 
-	public void updateList(ArrayList<User> data){
+	public void updateList(ArrayList<BaseUser> data){
 		this.mData =  data;
 		notifyDataSetChanged();
 	}
@@ -41,7 +42,7 @@ public class UserListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public User getItem(int position) {
+	public BaseUser getItem(int position) {
 		return (com.tencent.streamshare.Utils.Util.isEmpty(mData) || position <0 ||  position >= mData.size())?null:mData.get(position);
 	}
 
@@ -74,7 +75,7 @@ public class UserListAdapter extends BaseAdapter {
 		else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		final User mUser = (User)getItem(position);
+		final BaseUser mUser = (BaseUser)getItem(position);
 		holder.name.setText(mUser.getmNickName());
 		if(mUser.getmHeadImagUrl()!=null){
 			Uri uri = Uri.parse(mUser.getmHeadImagUrl());
