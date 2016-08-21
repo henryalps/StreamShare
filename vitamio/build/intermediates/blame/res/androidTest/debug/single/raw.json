@@ -1,5 +1,9 @@
 [
     {
+        "merged": "F:\\mini\\StreamShare\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\libarm.so",
+        "source": "F:\\mini\\StreamShare\\vitamio\\build\\intermediates\\bundles\\debug\\res\\raw\\libarm.so"
+    },
+    {
         "merged": "C:\\temp\\dev\\StreamShare\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\libarm.so",
         "source": "C:\\temp\\dev\\StreamShare\\vitamio\\build\\intermediates\\bundles\\debug\\res\\raw\\libarm.so"
     },
