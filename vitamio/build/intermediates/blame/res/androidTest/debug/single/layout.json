@@ -1,10 +1,6 @@
 [
     {
-        "merged": "F:\\mini\\SuperVideoPlayer-master\\SuperVideoPlayer-master\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mediacontroller.xml",
-        "source": "F:\\mini\\SuperVideoPlayer-master\\SuperVideoPlayer-master\\vitamio\\build\\intermediates\\bundles\\debug\\res\\layout\\mediacontroller.xml"
-    },
-    {
-        "merged": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mediacontroller.xml",
-        "source": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\layout\\mediacontroller.xml"
+        "merged": "F:\\mini\\StreamShare\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mediacontroller.xml",
+        "source": "F:\\mini\\StreamShare\\vitamio\\build\\intermediates\\bundles\\debug\\res\\layout\\mediacontroller.xml"
     }
 ]

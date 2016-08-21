@@ -1,10 +1,6 @@
 [
     {
-        "merged": "F:\\mini\\SuperVideoPlayer-master\\SuperVideoPlayer-master\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
-        "source": "F:\\mini\\SuperVideoPlayer-master\\SuperVideoPlayer-master\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
-    },
-    {
-        "merged": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
-        "source": "E:\\github\\SuperVideoPlayer\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
+        "merged": "F:\\mini\\StreamShare\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "F:\\mini\\StreamShare\\vitamio\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
     }
 ]

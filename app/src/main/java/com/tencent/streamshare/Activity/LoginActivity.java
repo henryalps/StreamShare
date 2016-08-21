@@ -1,11 +1,13 @@
 package com.tencent.streamshare.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.tencent.streamshare.MainActivity;
 import com.tencent.streamshare.R;
 
 /**
@@ -35,6 +37,10 @@ public class LoginActivity extends Activity {
 		});
 	}
 	private void doLogin(){
+
+		Intent intent = new Intent();
+		intent.setClass(this, MainActivity.class);
+		startActivity(intent);
 
 	}
 
