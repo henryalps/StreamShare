@@ -28,7 +28,7 @@ repositories {
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-   // testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
     /**********************第三方库-开始********************/
@@ -41,12 +41,12 @@ dependencies {
     //    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.0'
     compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.zhy:okhttputils:2.6.2'
-    // ui module
+//    // ui module
 //    compile 'net.qiujuer.genius:ui:2.0.0-beta8'
 //    compile 'net.qiujuer.genius:res:2.0.0-beta8'
-    // ui blur module
+//    // ui blur module
 //    compile 'net.qiujuer.genius:blur:2.0.0'
-    // ui kit module
+//    // ui kit module
 //    compile 'net.qiujuer.genius:kit:2.0.0-beta8'
     // dialog
     compile 'com.avast:android-styled-dialogs:2.3.3'

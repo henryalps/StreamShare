@@ -1,18 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.tencent.streamshare.Activity.PlayerActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stop_stream_btn"
+        android:src="@mipmap/ic_play_circle_normal_o"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"/>
+
+    <!-- The primary full-screen view-->
 
     <io.vov.vitamio.widget.VideoView
         android:id="@+id/surface_view"
         android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
   <!-- This FrameLayout insets its children based on system windows using
        android:fitsSystemWindows. -->
@@ -42,4 +49,4 @@
         </LinearLayout>
     </FrameLayout>
 
-</FrameLayout>
+</RelativeLayout>
