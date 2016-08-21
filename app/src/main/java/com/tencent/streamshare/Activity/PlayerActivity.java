@@ -106,15 +106,15 @@ public class PlayerActivity extends AppCompatActivity {
     private void initView() {
         initPlayerView();
 
-        mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
-        mBackBtn.setScaleX(-1);
-        mBackBtn.setScaleY(1);
-        mBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exitPage();
-            }
-        });
+        //mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
+       // mBackBtn.setScaleX(-1);
+       // mBackBtn.setScaleY(1);
+       // mBackBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                exitPage();
+//            }
+//        });
 
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mVisible = true;
