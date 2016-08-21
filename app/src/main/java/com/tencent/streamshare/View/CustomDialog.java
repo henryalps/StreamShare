@@ -2,6 +2,8 @@ package com.tencent.streamshare.View;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -171,8 +173,8 @@ public class CustomDialog extends Dialog {
 			// set the content message
 			if (message != null) {
 
-
-				((SimpleDraweeView) layout.findViewById(R.id.message)).setImageBitmap(QRCodeUtil.createImage(message,300,300,null));
+				BitmapDrawable bd = (BitmapDrawable)context.getResources().getDrawable(R.drawable.qqvideo) ;
+				((SimpleDraweeView) layout.findViewById(R.id.message)).setImageBitmap(QRCodeUtil.createImage(message,300,300, bd.getBitmap()));
 			} else if (contentView != null) {
 				// if no message set
 				// add the contentView to the dialog body

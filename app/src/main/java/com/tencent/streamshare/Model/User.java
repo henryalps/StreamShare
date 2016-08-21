@@ -14,7 +14,7 @@ public class User extends BaseUser{
     /*一次只能播放一个视频*/
     private StreamInfo mCurrentStream;
 
-    private User() {
+    public User() {
 
     }
 
