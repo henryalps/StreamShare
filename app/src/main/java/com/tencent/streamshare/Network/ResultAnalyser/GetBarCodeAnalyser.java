@@ -25,7 +25,7 @@ public class GetBarCodeAnalyser extends BaseAnalyser {
             return false;
         }
         mMyApplication.setmAppId(JSONUtils.getString(data,"appid",Constants.PROTOCOL_HEADER));
-        mListener.onSuccess(mMyApplication.getmAppId() + token); // Appid放在包头以验证二维码合法性
+        mListener.onSuccess(token); // Appid放在包头以验证二维码合法性
         return true;
     }
 }
