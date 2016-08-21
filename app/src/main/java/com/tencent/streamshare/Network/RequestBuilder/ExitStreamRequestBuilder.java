@@ -7,19 +7,13 @@ import org.json.JSONObject;
 
 /**
  * Created by zhaoyongfei on 2016/8/21.
- * 票据换取播放地址
  */
-public class GetStreamAddressRequestBuilder extends BaseRequestBuilder {
-    private String mToken;
-
-    public GetStreamAddressRequestBuilder(String mToken) {
-        this.mToken = mToken;
-    }
-
+public class ExitStreamRequestBuilder extends BaseRequestBuilder {
     @Override
     protected JSONObject doBuilder(JSONObject forReturn) throws JSONException {
         forReturn.put("userid", User.getInstance().getmId());
-        forReturn.put("token", mToken);
+        forReturn.put("streamid", User.getInstance().getmCurrentStream().getmId());
+        forReturn.put("groupkey", User.getInstance().getGroupkey());
         return forReturn;
     }
 }

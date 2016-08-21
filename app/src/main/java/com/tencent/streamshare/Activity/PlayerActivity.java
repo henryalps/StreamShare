@@ -17,7 +17,9 @@ import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.MyApplication;
 import com.tencent.streamshare.Network.GlobalNetworkHelper;
 import com.tencent.streamshare.Network.Listener.ResultListener;
+import com.tencent.streamshare.Network.RequestBuilder.ExitStreamRequestBuilder;
 import com.tencent.streamshare.Network.RequestBuilder.GetBarCodeBuilder;
+import com.tencent.streamshare.Network.ResultAnalyser.ExitStreamAnalyser;
 import com.tencent.streamshare.Network.ResultAnalyser.GetBarCodeAnalyser;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.Utils.Constants;
@@ -171,7 +173,20 @@ public class PlayerActivity extends AppCompatActivity {
         if (mVideoView != null) {
             mVideoView.pause();
         }
-        User.getInstance().setmCurrentStream(null); // 清空当前播放流信息
+        User.getInstance().setmCurrentStream(null); // 退出播放流时必须清空当前播放流信息
+        new GlobalNetworkHelper(this, Constants.URL_EXIT_STREAM)
+                .addRequest(new ExitStreamRequestBuilder().build())
+                .addAnalyser(new ExitStreamAnalyser(new ResultListener() {
+                    @Override
+                    public void onSuccess(Object data) {
+
+                    }
+
+                    @Override
+                    public void onFail(int Code, String Msg) {
+
+                    }
+                })).start();
     }
 
     private void exitPage() {
