@@ -24,7 +24,7 @@ public class GetBarCodeAnalyser extends BaseAnalyser {
             mListener.onFail(Constants.CODE_RESULT_ANALYSIS_FAIL, "请求失败");
             return false;
         }
-        mMyApplication.setmAppId(JSONUtils.getString(data,"appid","OMG_SIX"));
+        mMyApplication.setmAppId(JSONUtils.getString(data,"appid",Constants.PROTOCOL_HEADER));
         mListener.onSuccess(token);
         return true;
     }

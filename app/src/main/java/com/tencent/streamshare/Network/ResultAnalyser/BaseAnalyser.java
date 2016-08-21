@@ -19,7 +19,7 @@ public abstract class BaseAnalyser implements ResultAnalyserInterface  {
 
     @Override
     public boolean analysis(JSONObject result) throws JSONException {
-        JSONObject object = JSONUtils.getJSONObject(result,"result",new JSONObject());
+        JSONObject object = JSONUtils.getJSONObject(result,"data",new JSONObject());
         return doAnalysis(object);
     }
 

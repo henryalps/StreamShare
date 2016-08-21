@@ -17,6 +17,7 @@ import com.tencent.streamshare.Model.StreamInfo;
 
 import java.util.ArrayList;
 
+import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.Utils.Util;
 
@@ -93,9 +94,9 @@ public class SteamListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View view) {
 				if (!StringUtils.isEmpty(mStreamInfo.getmUrl())) {
+					User.getInstance().setmCurrentStream(mStreamInfo);
 					Intent intent = new Intent();
 					intent.setClass(mContext, PlayerActivity.class);
-					intent.putExtra(PlayerActivity.STREAM_URL_TAG, mStreamInfo.getmUrl());
 					mContext.startActivity(intent);
 				}
 			}
