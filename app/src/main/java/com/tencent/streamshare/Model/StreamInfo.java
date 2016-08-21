@@ -14,7 +14,7 @@ public class StreamInfo {
     private String mImgUrl;
     private int mVIewCount;
     private boolean mHasRight;
-    private String mTime;
+    private int mTime;
     private int mStatus;
 
     public String getmId() {
@@ -65,11 +65,11 @@ public class StreamInfo {
         this.mHasRight = mHasRight;
     }
 
-    public String getmTime() {
+    public int getmTime() {
         return mTime;
     }
 
-    public void setmTime(String mTime) {
+    public void setmTime(int mTime) {
         this.mTime = mTime;
     }
 
