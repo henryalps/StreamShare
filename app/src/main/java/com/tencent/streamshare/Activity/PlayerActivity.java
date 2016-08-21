@@ -2,16 +2,20 @@ package com.tencent.streamshare.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 
+import com.tencent.streamshare.Adapter.UserListAdapter;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.View.CustomDialog;
 
@@ -26,6 +30,9 @@ import io.vov.vitamio.widget.VideoView;
 public class PlayerActivity extends AppCompatActivity {
 
     private Button WatchUser,Share;
+    private DrawerLayout mDrawerLayout ;
+    private ListView userList;
+    private UserListAdapter mUserListAdapter;
     public static final String STREAM_URL_TAG = "STREAM_URL_TAG";
     /**
      * Whether or not the system UI should be auto-hidden after
@@ -110,7 +117,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void initView() {
         initPlayerView();
-
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mBackBtn = (ImageView) findViewById(R.id.stop_stream_btn);
         mBackBtn.setScaleX(-1);
         mBackBtn.setScaleY(1);
@@ -124,7 +131,8 @@ public class PlayerActivity extends AppCompatActivity {
         WatchUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //exitPage();
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
+
             }
         });
         Share = (Button)findViewById(R.id.user_share);
@@ -134,6 +142,7 @@ public class PlayerActivity extends AppCompatActivity {
                 doDialog();
             }
         });
+        userList =(ListView)this.findViewById(R.id.right_drawer);
 
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mVisible = true;
@@ -175,6 +184,8 @@ public class PlayerActivity extends AppCompatActivity {
         CustomDialog.Builder builder = new CustomDialog.Builder(this);
         builder.setMessage("二维码分享");
         builder.setTitle("二维码分享");
+
+        //确定和取消不显示 = =！ 直接显示二维码吧
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

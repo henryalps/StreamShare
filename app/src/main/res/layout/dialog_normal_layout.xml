@@ -29,8 +29,8 @@
         <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/message"
         style="@style/text_16_666666"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:gravity="left|center"
         android:layout_gravity="center_horizontal"
         />
