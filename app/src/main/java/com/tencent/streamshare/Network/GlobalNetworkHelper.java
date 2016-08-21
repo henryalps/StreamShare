@@ -11,13 +11,17 @@ import com.tencent.streamshare.Network.ResultAnalyser.CommonAnalyser;
 import com.tencent.streamshare.Network.ResultAnalyser.ResultAnalyserInterface;
 import com.tencent.streamshare.Utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.OkHttpRequestBuilder;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import okhttp3.Call;
 import okhttp3.Response;
@@ -77,34 +81,35 @@ public class GlobalNetworkHelper implements ResultListener{
         builder = builder.url(mUrl);
 
         for(JSONObject obj:mRequestArray) {
-            while (obj.keys().hasNext()) {
-                String key = obj.keys().next();
+            Iterator<String> keys = obj.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
                 try {
-                    builder.addHeader(key, obj.getString(key));
+                    if (mType == Constants.REQ_TYPE_GET){
+                        ((GetBuilder)builder).addParams(key, obj.getString(key));
+                    } else {
+                        ((PostFormBuilder)builder).addParams(key, obj.getString(key));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        builder.build().execute(new Callback() {
-            @Override
-            public Object parseNetworkResponse(Response response, int id) throws Exception {
-                return null;
-            }
 
+        builder.build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 mHasStarted = false;
             }
 
             @Override
-            public void onResponse(Object response, int id) {
+            public void onResponse(String response, int id) {
                 mHasStarted = false;
                 for(ResultAnalyserInterface analyser:mResultAnalysers) {
                     if (mNeedAnalyse){
                         try {
-                            analyser.analysis((JSONObject) response);
+                            analyser.analysis(new JSONObject(response));
                         } catch (JSONException e) {
                             e.printStackTrace();
                             onFail(Constants.CODE_RESULT_JSON_FAIL, "Json解析失败");
