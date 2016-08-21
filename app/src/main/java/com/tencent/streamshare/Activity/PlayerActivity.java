@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.R;
 
 
@@ -144,6 +145,7 @@ public class PlayerActivity extends AppCompatActivity {
         if (mVideoView != null) {
             mVideoView.pause();
         }
+        User.getInstance().setmCurrentStream(null); // 清空当前播放流信息
     }
 
     private void exitPage() {
