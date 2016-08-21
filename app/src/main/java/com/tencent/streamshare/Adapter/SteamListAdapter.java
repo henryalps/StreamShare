@@ -68,7 +68,7 @@ public class SteamListAdapter extends BaseAdapter {
 
 		ViewHolder holder  =null;
 
-
+		inflater = LayoutInflater.from(mContext);
 		if(holder == null ){
 			convertView = inflater.inflate(R.layout.steam_item_view, null);
 			holder = new ViewHolder();
@@ -83,7 +83,7 @@ public class SteamListAdapter extends BaseAdapter {
 		}
 		final StreamInfo mStreamInfo = (StreamInfo)getItem(position);
 		holder.name.setText(mStreamInfo.getmName());
-		holder.count.setText(mStreamInfo.getmVIewCount());
+		holder.count.setText(""+mStreamInfo.getmVIewCount());
 		holder.time.setText(Util.unix2dateFormat(mStreamInfo.getmTime()));
 		if(mStreamInfo.getmImgUrl()!=null){
 			Uri uri = Uri.parse(mStreamInfo.getmImgUrl());

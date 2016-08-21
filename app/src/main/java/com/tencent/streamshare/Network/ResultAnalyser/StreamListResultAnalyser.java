@@ -43,7 +43,7 @@ public class StreamListResultAnalyser implements ResultAnalyserInterface {
         forReturn.setmUrl(JSONUtils.getString(node, "url", ""));
         forReturn.setmImgUrl(JSONUtils.getString(node, "cover_img", ""));
         forReturn.setmVIewCount(JSONUtils.getInt(node, "total_view", RandomUtils.getRandom(1000)));
-        forReturn.setmTime(JSONUtils.getString(node, "start_time", "2016-08-17 19:03:26"));
+        forReturn.setmTime(JSONUtils.getLong(node, "start_time", 0));
         forReturn.setmStatus(JSONUtils.getInt(node, "status", 1));
         forReturn.setmHasRight(JSONUtils.getInt(node, "right", 0) == 1);
         return forReturn;

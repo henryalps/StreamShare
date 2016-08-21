@@ -27,11 +27,19 @@ import com.ihongqiqu.util.StringUtils;
 import com.tencent.streamshare.Activity.LoginActivity;
 import com.tencent.streamshare.Activity.PlayerActivity;
 import com.tencent.streamshare.Adapter.SteamListAdapter;
+import com.tencent.streamshare.Model.StreamInfo;
 import com.tencent.streamshare.Model.User;
+import com.tencent.streamshare.Network.GlobalNetworkHelper;
+import com.tencent.streamshare.Network.Listener.ResultListener;
+import com.tencent.streamshare.Network.RequestBuilder.StreamListRequestBuilder;
+import com.tencent.streamshare.Network.ResultAnalyser.StreamListResultAnalyser;
+import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.Utils.QRCodeUtil;
 import com.tencent.streamshare.View.StreamUrlDialog;
 
-public class MainActivity extends AppCompatActivity implements StreamUrlDialog.PositiveBtnListener{
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements StreamUrlDialog.PositiveBtnListener, ResultListener{
 
     private TextView mUserName;
     private SimpleDraweeView mUserProfile,mIsVip;
@@ -102,7 +110,10 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
             mIsVip.setImageURI(uri);
         }
 
-
+        new GlobalNetworkHelper(this, Constants.URL_LIVE_STREAM_INFO, Constants.REQ_TYPE_GET)
+                .addRequest(new StreamListRequestBuilder().build())
+                .addAnalyser(new StreamListResultAnalyser(this))
+                .start();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -114,6 +125,18 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
             Toast.makeText(getApplicationContext(), "解析失败",
                             Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @Override
+    public void onSuccess(Object data) {
+        mSteamListAdapter = new SteamListAdapter(this, (ArrayList<StreamInfo>) data);
+        mSteamList.setAdapter(mSteamListAdapter);
+        mSteamListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFail(int Code, String Msg) {
 
     }
 }
