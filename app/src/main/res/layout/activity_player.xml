@@ -11,6 +11,22 @@
         android:src="@mipmap/ic_play_circle_normal_o"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"/>
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:id="@+id/user_num"
+        android:text="0"
+        android:background="@drawable/btn_qqlogin_selector"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:id="@+id/user_share"
+        android:text="分享"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_qqlogin_selector"
+        android:layout_below="@id/user_num" />
 
     <!-- The primary full-screen view-->
 
@@ -44,7 +60,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:text="@string/dummy_button"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </FrameLayout>

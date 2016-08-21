@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
 
         BitmapDrawable bd = (BitmapDrawable) getResources().getDrawable(R.drawable.littleyello);
 
-        ivQR.setImageBitmap(QRCodeUtil.createImage("CESH1I123123",600,600,null));
+      //  ivQR.setImageBitmap(QRCodeUtil.createImage("CESH1I123123",600,600,null));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
