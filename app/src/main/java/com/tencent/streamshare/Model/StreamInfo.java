@@ -1,5 +1,7 @@
 package com.tencent.streamshare.Model;
 
+import java.util.ArrayList;
+
 /**
  * Created by zhaoyongfei on 2016/8/21.
  */
@@ -16,7 +18,10 @@ public class StreamInfo {
     private boolean mHasRight;
     private long mTime;
     private int mStatus;
+
     private boolean mCouldShare = false;
+    private int mShareNum = 0;
+    private ArrayList<BaseUser> mSharingUser; // 此流分享给的用户
 
     public String getmId() {
         return mId;

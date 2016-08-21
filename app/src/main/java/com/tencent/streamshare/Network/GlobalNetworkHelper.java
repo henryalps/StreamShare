@@ -29,7 +29,7 @@ import okhttp3.Response;
 
 /**
  * Created by henryrhe on 2016/8/21.
- * 统一的网络类
+ * 统一的网络类, 默认采取GET方法
  * 1. addRequest 添加一个requestbuilder生成的request
  * 2. addAnalyser 添加一个Analyser解析器
  * 3. start 开始网络请求，开始请求后，无法继续添加request
@@ -45,14 +45,16 @@ public class GlobalNetworkHelper implements ResultListener{
     private ArrayList<JSONObject> mRequestArray = new ArrayList<>(); // 所有的请求字段
     private ArrayList<ResultAnalyserInterface> mResultAnalysers = new ArrayList<>(); // 所有的结果解析器
 
-    public GlobalNetworkHelper(Context mContext, String mUrl, int mType) {
+    public GlobalNetworkHelper(Context mContext, String mUrl) {
         this.mContext = mContext;
         this.mUrl = mUrl;
-        this.mType = mType;
-
         addRequest(new CommonRequestBuilder().build()); // 通用的请求格式定义
-
         addAnalyser(new CommonAnalyser(this)); // 保证通用解析器处在第一位
+    }
+
+    public GlobalNetworkHelper(Context mContext, String mUrl, int mType) {
+        this(mContext, mUrl);
+        this.mType = mType;
     }
 
     public GlobalNetworkHelper addRequest(JSONObject request) {

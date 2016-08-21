@@ -24,6 +24,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ihongqiqu.util.StringUtils;
+import com.sdsmdg.tastytoast.TastyToast;
 import com.tencent.streamshare.Activity.LoginActivity;
 import com.tencent.streamshare.Activity.PlayerActivity;
 import com.tencent.streamshare.Adapter.SteamListAdapter;
@@ -31,7 +32,9 @@ import com.tencent.streamshare.Model.StreamInfo;
 import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.Network.GlobalNetworkHelper;
 import com.tencent.streamshare.Network.Listener.ResultListener;
+import com.tencent.streamshare.Network.RequestBuilder.GetStreamAddressRequestBuilder;
 import com.tencent.streamshare.Network.RequestBuilder.StreamListRequestBuilder;
+import com.tencent.streamshare.Network.ResultAnalyser.GetStreamAddressAnalyser;
 import com.tencent.streamshare.Network.ResultAnalyser.StreamListResultAnalyser;
 import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.Utils.QRCodeUtil;
@@ -119,13 +122,29 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
-            Toast.makeText(getApplicationContext(),scanResult.getContents(),
-                            Toast.LENGTH_SHORT).show();
+            String barcodeStr = scanResult.getContents();
+            if (barcodeStr.startsWith(Constants.PROTOCOL_HEADER)) {
+                barcodeStr=  barcodeStr.substring(Constants.PROTOCOL_HEADER.length(), barcodeStr.length());
+                new GlobalNetworkHelper(this, Constants.URL_ATTAIN_STREAM_ADDRESS)
+                        .addRequest(new GetStreamAddressRequestBuilder().build())
+                        .addAnalyser(new GetStreamAddressAnalyser(new ResultListener() {
+                            @Override
+                            public void onSuccess(Object data) {
+                                onBtnClicked(User.getInstance().getmCurrentStream().getmUrl());
+                            }
+
+                            @Override
+                            public void onFail(int Code, String Msg) {
+
+                            }
+                        })).start();
+            } else {
+                TastyToast.makeText(this,  "二维码不合法", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+            }
         }else{
             Toast.makeText(getApplicationContext(), "解析失败",
                             Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override

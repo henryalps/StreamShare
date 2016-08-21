@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 /**
  * Created by zhaoyongfei on 2016/8/21.
+ * TODO 检测流是否可用。未实现。
  */
 public class CheckStreamResultAnalyser implements ResultAnalyserInterface {
     @Override

@@ -34,4 +34,6 @@ public class Constants {
 
     public final static int CODE_LOGIN_SUCCESS = 0;
     public final static int CODE_LOGIN_IS_VIP = 1;
+
+    public final static String PROTOCOL_HEADER = "OMG_SIX";
 }

@@ -16,7 +16,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.tencent.streamshare.Adapter.UserListAdapter;
+import com.sdsmdg.tastytoast.TastyToast;
+import com.tencent.streamshare.Model.User;
+import com.tencent.streamshare.MyApplication;
+import com.tencent.streamshare.Network.GlobalNetworkHelper;
+import com.tencent.streamshare.Network.Listener.ResultListener;
+import com.tencent.streamshare.Network.RequestBuilder.GetBarCodeBuilder;
+import com.tencent.streamshare.Network.ResultAnalyser.GetBarCodeAnalyser;
 import com.tencent.streamshare.R;
+import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.View.CustomDialog;
 
 
@@ -158,7 +166,7 @@ public class PlayerActivity extends AppCompatActivity {
             mVideoView = (VideoView) findViewById(R.id.surface_view);
             mVideoView.requestFocus();
             mVideoView.setVideoChroma(MediaPlayer.VIDEOCHROMA_RGB565);
-            mVideoView.setVideoPath(getIntent().getStringExtra(STREAM_URL_TAG));
+            mVideoView.setVideoPath(User.getInstance().getmCurrentStream().getmUrl());
         }
     }
 
@@ -172,6 +180,7 @@ public class PlayerActivity extends AppCompatActivity {
         if (mVideoView != null) {
             mVideoView.pause();
         }
+        User.getInstance().setmCurrentStream(null); // 清空当前播放流信息
     }
 
     private void exitPage() {
@@ -180,27 +189,39 @@ public class PlayerActivity extends AppCompatActivity {
     }
     private void doDialog(){
 
-        //返回验证码
-        CustomDialog.Builder builder = new CustomDialog.Builder(this);
-        builder.setMessage("二维码分享");
-        builder.setTitle("二维码分享");
 
-        //确定和取消不显示 = =！ 直接显示二维码吧
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                //设置你的操作事项
-            }
-        });
-
-        builder.setNegativeButton("取消",
-                        new android.content.DialogInterface.OnClickListener() {
+        new GlobalNetworkHelper(this, Constants.URL_ATTAIN_BAR_CODE, Constants.REQ_TYPE_GET)
+                .addRequest(new GetBarCodeBuilder(User.getInstance().getmCurrentStream()).build())
+                .addAnalyser(new GetBarCodeAnalyser(new ResultListener() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        //返回验证码
+                        final CustomDialog.Builder builder = new CustomDialog.Builder(PlayerActivity.this);
+                        builder.setMessage((String) data);
+                        builder.setTitle("二维码分享");
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
+                                //设置你的操作事项
                             }
                         });
+                        builder.setNegativeButton("取消",
+                                new android.content.DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
 
-        builder.create().show();
+                        builder.create().show();
+                    }
+
+                    @Override
+                    public void onFail(int Code, String Msg) {
+                        TastyToast.makeText(PlayerActivity.this, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
+                                "错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                    }
+                }, (MyApplication) getApplication()))
+        .start();
 
     }
 
