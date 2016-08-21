@@ -16,6 +16,7 @@ public class StreamInfo {
     private boolean mHasRight;
     private long mTime;
     private int mStatus;
+    private boolean mCouldShare = false;
 
     public String getmId() {
         return mId;
@@ -79,5 +80,13 @@ public class StreamInfo {
 
     public void setmStatus(int mStatus) {
         this.mStatus = mStatus;
+    }
+
+    public boolean ismCouldShare() {
+        return mCouldShare;
+    }
+
+    public void setmCouldShare(boolean mCouldShare) {
+        this.mCouldShare = mCouldShare;
     }
 }
