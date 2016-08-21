@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/StreamShare.iml" filepath="$PROJECT_DIR$/StreamShare.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/vitamio/vitamiolib.iml" filepath="$PROJECT_DIR$/vitamio/vitamiolib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vitamio/vitamiolib.iml" filepath="$PROJECT_DIR$/vitamio/vitamiolib.iml" />
     </modules>
   </component>
 </project>
