@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ListViewCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ import com.google.zxing.integration.android.IntentResult;
 import com.ihongqiqu.util.StringUtils;
 import com.tencent.streamshare.Activity.LoginActivity;
 import com.tencent.streamshare.Activity.PlayerActivity;
+import com.tencent.streamshare.Adapter.SteamListAdapter;
+import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.Utils.QRCodeUtil;
 import com.tencent.streamshare.View.StreamUrlDialog;
 
@@ -32,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
     private TextView mUserName;
     private SimpleDraweeView mUserProfile,mIsVip;
     private Button Qrcode;
+    private ListView mSteamList;
+    private SteamListAdapter mSteamListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
         mUserProfile =(SimpleDraweeView) this.findViewById(R.id.user_photo);
         mIsVip =(SimpleDraweeView) this.findViewById(R.id.user_isvip);
         Qrcode = (Button)this.findViewById(R.id.titlebar_camera) ;
-        Qrcode.setOnClickListener(new View.OnClickListener() {
+        mSteamList = (ListView)this.findViewById(R.id.steam_list);
+       Qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
             }
             });
 
-        inittab();
+        initView();
 
         ImageView ivQR= (ImageView)this.findViewById(R.id.QrcodeTest);
 
@@ -80,12 +87,13 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
             startActivity(intent);
         }
     }
-    private void inittab(){
+    private void initView(){
         //设置相关信息
 
-        Uri uri = Uri.parse("http://img4.imgtn.bdimg.com/it/u=1745615891,1988783183&fm=21&gp=0.jpg");
+        mUserName.setText(User.getInstance().getmNickName());
+        Uri uri = Uri.parse(User.getInstance().getmHeadImagUrl());
         mUserProfile.setImageURI(uri);
-        if(true)//是不是ｖｉｐ
+        if(User.getInstance().ismIsVip())//是不是ｖｉｐ
          {
              uri = Uri.parse("http://img1.114pifa.com/2045/t7TH9GDYG_1400207302.jpg");
              mIsVip.setImageURI(uri);
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
             uri = Uri.parse("http://i.gtimg.cn/qqlive/images/20150210/defult_user.png");
             mIsVip.setImageURI(uri);
         }
+
 
     }
 
