@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.ihongqiqu.util.StringUtils;
+import com.sdsmdg.tastytoast.TastyToast;
 import com.tencent.streamshare.Activity.PlayerActivity;
 import com.tencent.streamshare.Model.StreamInfo;
 
@@ -93,12 +94,12 @@ public class SteamListAdapter extends BaseAdapter {
 			Uri uri = Uri.parse(mStreamInfo.getmImgUrl());
 			holder.mPhoto.setImageURI(uri);
 		}
-		if(mStreamInfo.ismHasRight()&&!User.getInstance().ismIsVip()) {
-		}
-		else {
-			holder.steamView.setOnClickListener(new View.OnClickListener() {
-													@Override
-													public void onClick(View view) {
+		holder.steamView.setOnClickListener(new View.OnClickListener() {
+												@Override
+												public void onClick(View view) {
+													if(mStreamInfo.ismHasRight()&&!User.getInstance().ismIsVip()) {
+														TastyToast.makeText(mContext, "加入VIP会员，即可观看VIP专享直播", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+													} else {
 														if (!StringUtils.isEmpty(mStreamInfo.getmUrl())) {
 															User.getInstance().setmCurrentStream(mStreamInfo);
 															Intent intent = new Intent();
@@ -108,13 +109,8 @@ public class SteamListAdapter extends BaseAdapter {
 														}
 													}
 												}
-			);
-		}
-
-
-
-
-
+											}
+		);
 		return convertView;
 
 	}

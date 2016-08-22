@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
         if (mTimer != null) {
             mTimer.cancel();
             mTimer = null;
+            mTimerTask = null;
         }
     }
 
