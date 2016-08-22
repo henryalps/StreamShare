@@ -9,6 +9,8 @@ OMG.Graduate @2016 ©Tencent.com
 5 UI [Android-Genius](https://github.com/qiujuer/Genius-Android)
 6 Dialog [Android-style-dialog](https://github.com/avast/android-styled-dialogs)
 6 Utils [android-utils](https://github.com/jingle1267/android-utils)
+7 Toast [Tasty-Toast](https://github.com/yadav-rahul/TastyToast)
+8 Loading [loadingindicatorview](https://github.com/81813780/AVLoadingIndicatorView)
 
 **功能点**
 1 登录

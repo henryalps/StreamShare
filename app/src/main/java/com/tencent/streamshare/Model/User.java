@@ -4,15 +4,15 @@ package com.tencent.streamshare.Model;
  * Created by henryrhe on 2016/8/20.
  * 用户模型
  */
-public class User {
-    private static User mInstance;
-    private int mId;
-    private boolean mIsVip;
-    private boolean mToken;
+public class User extends BaseUser{
+    private static User mInstance = new User();
+    private String mNickName = "guest";
+    private String mPasswd = "";
+    private boolean mIsVip = false;
+    private String mToken = "";
 
     /*一次只能播放一个视频*/
-    private int mCurrentVideoId; // 当前播放的视频id
-    private int mShareNum; // 当前视频的分享数
+    private StreamInfo mCurrentStream;
 
     private User() {
 
@@ -25,14 +25,6 @@ public class User {
         return mInstance;
     }
 
-    public int getmId() {
-        return mId;
-    }
-
-    public void setmId(int mId) {
-        this.mId = mId;
-    }
-
     public boolean ismIsVip() {
         return mIsVip;
     }
@@ -41,27 +33,35 @@ public class User {
         this.mIsVip = mIsVip;
     }
 
-    public boolean ismToken() {
+    public String getmToken() {
         return mToken;
     }
 
-    public void setmToken(boolean mToken) {
+    public void setmToken(String mToken) {
         this.mToken = mToken;
     }
 
-    public int getmCurrentVideoId() {
-        return mCurrentVideoId;
+    public StreamInfo getmCurrentStream() {
+        return mCurrentStream;
     }
 
-    public void setmCurrentVideoId(int mCurrentVideoId) {
-        this.mCurrentVideoId = mCurrentVideoId;
+    public void setmCurrentStream(StreamInfo mCurrentStream) {
+        this.mCurrentStream = mCurrentStream;
     }
 
-    public int getmShareNum() {
-        return mShareNum;
+    public String getmPasswd() {
+        return mPasswd;
     }
 
-    public void setmShareNum(int mShareNum) {
-        this.mShareNum = mShareNum;
+    public void setmPasswd(String mPasswd) {
+        this.mPasswd = mPasswd;
+    }
+
+    public String getmNickName() {
+        return mNickName;
+    }
+
+    public void setmNickName(String mNickName) {
+        this.mNickName = mNickName;
     }
 }

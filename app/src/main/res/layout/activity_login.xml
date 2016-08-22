@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@null">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/land_bj"
+        />
+
+    <RelativeLayout
+        android:id="@+id/layout_startlogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#26000000" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="86dp"
+            android:orientation="horizontal"
+            >
+
+
+        </LinearLayout>
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical" >-->
+
+        <!--<Button-->
+        <!--android:id="@+id/btn_qqlogin"-->
+        <!--android:layout_width="215dp"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:background="@drawable/btn_qqlogin_selector"-->
+        <!--android:gravity="center"-->
+        <!--android:paddingLeft="70dp"-->
+        <!--android:paddingRight="55dp"-->
+        <!--android:text="登录"-->
+        <!--android:textColor="#FFFFFF"-->
+        <!--android:textSize="15dp" />-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:paddingTop="25dp" >-->
+
+        <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+    </RelativeLayout>
+
+
+
+
+
+    <FrameLayout
+        android:id="@+id/frame_manualloginpanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_centerInParent="true" >
+
+        <LinearLayout
+            android:id="@+id/linearlayout_manualloginpanel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/inputQQNumLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/QQ_number"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请入输入帐号"
+
+                    android:paddingTop="15dp"
+                    android:singleLine="true"
+                    android:textColor="#BF000000"
+                    android:textColorHint="#BF000000"
+                    android:textSize="18dp" >
+
+                </EditText>
+
+                <Button
+                    android:id="@+id/userinfo_clear"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:background="@null"
+                    android:paddingTop="15dp"
+                    android:paddingRight="24dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="2px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#ff7000" />
+
+            <LinearLayout
+                android:id="@+id/inputQQPsdLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/QQ_password"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入密码"
+                    android:paddingBottom="0dp"
+                    android:paddingTop="15dp"
+                    android:password="true"
+                    android:singleLine="true"
+                    android:textColor="#BF000000"
+                    android:textColorHint="#BF000000"
+                    android:textSize="18dp" />
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="2px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#ff7000" />
+
+            <LinearLayout
+                android:id="@+id/inputVerifyCode"
+                android:layout_width="fill_parent"
+                android:layout_height="47dp"
+                android:gravity="center"
+                android:visibility="gone" >
+
+
+
+                <ImageView
+                    android:id="@+id/verify_code_img"
+                    android:layout_width="82dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="17dp"
+                    android:clickable="true"
+                    android:scaleType="fitXY"
+                    android:src="#666666" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/verify_code_line"
+                android:layout_width="fill_parent"
+                android:layout_height="2px"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#7000"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_qqlogin"
+                android:layout_width="215dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/btn_qqlogin_selector"
+                android:gravity="center"
+                android:paddingLeft="70dp"
+                android:paddingRight="55dp"
+                android:text="登录"
+                android:textColor="#ff7000"
+                android:textSize="15dp" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <com.tencent.streamshare.View.MaskLoadingView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility = "gone"
+        />
+
+
+</RelativeLayout>

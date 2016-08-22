@@ -10,11 +10,26 @@
         android:id="@+id/stop_stream_btn"
         android:src="@mipmap/ic_play_circle_normal_o"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"/>
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:id="@+id/return_btn"
+        android:text="返回"
+        android:background="@drawable/btn_qqlogin_selector"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"/>
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:id="@+id/user_share"
+        android:text="分享"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_qqlogin_selector"
+        android:layout_below="@id/return_btn" />
 
-    <!-- The primary full-screen view. Tm_his can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+    <!-- The primary full-screen view-->
 
     <io.vov.vitamio.widget.VideoView
         android:id="@+id/surface_view"
@@ -46,9 +61,29 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dummy_button" />
+                android:text="@string/dummy_button"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </FrameLayout>
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- The main content view -->
+
+        <!-- The navigation drawer -->
+
+        <ListView
+            android:id="@+id/right_drawer"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#ebebeb"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+    </android.support.v4.widget.DrawerLayout>
 
 </RelativeLayout>

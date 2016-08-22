@@ -19,9 +19,21 @@ public class Constants {
     public final static String URL_EXIT_STREAM =
             "http://1.tv.ptyg.gitv.tv/i-tvbin/qtv_video/omgtrain/user_exit_stream";
 
-    public final static int CODE_RESULT_RET_SUCCESS = 0x00;
-//    public final static int CODE_RESULT_RET_FAIL = 0x01;
-    public final static int CODE_RESULT_STATE_SUCCESS = 0x00;
+    public final static int CODE_RESULT_RET_SUCCESS = 0;
+//    public final static int CODE_RESULT_RET_FAIL =1;
+    public final static int CODE_RESULT_STATE_SUCCESS = 0;
 
-    public final static int CODE_RESULT_IS_VIP = 0x01;
+
+    public final static int CODE_RESULT_IS_VIP = 1;
+
+    public final static int REQ_TYPE_GET = 0x00;
+    public final static int REQ_TYPE_POST = 0x01;
+
+    public final static int CODE_RESULT_JSON_FAIL = 0x10; // 不会和后台的网络错误码冲突
+    public final static int CODE_RESULT_ANALYSIS_FAIL = 0x11;
+
+    public final static int CODE_LOGIN_SUCCESS = 0;
+    public final static int CODE_LOGIN_IS_VIP = 1;
+
+    public final static String PROTOCOL_HEADER = "OMG_SIX";
 }
