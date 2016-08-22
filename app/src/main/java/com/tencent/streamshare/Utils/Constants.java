@@ -36,4 +36,6 @@ public class Constants {
     public final static int CODE_LOGIN_IS_VIP = 1;
 
     public final static String PROTOCOL_HEADER = "OMG_SIX";
+
+    public final static int PUSH_PERIOD = 200; // 轮询周期200ms
 }

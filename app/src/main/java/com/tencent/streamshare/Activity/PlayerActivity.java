@@ -2,6 +2,7 @@ package com.tencent.streamshare.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,14 +26,22 @@ import com.tencent.streamshare.Network.GlobalNetworkHelper;
 import com.tencent.streamshare.Network.Listener.ResultListener;
 import com.tencent.streamshare.Network.RequestBuilder.ExitStreamRequestBuilder;
 import com.tencent.streamshare.Network.RequestBuilder.GetBarCodeBuilder;
+import com.tencent.streamshare.Network.RequestBuilder.PushRequestBuilder;
 import com.tencent.streamshare.Network.ResultAnalyser.ExitStreamAnalyser;
 import com.tencent.streamshare.Network.ResultAnalyser.GetBarCodeAnalyser;
+import com.tencent.streamshare.Network.ResultAnalyser.PushAnalyser;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.View.CustomDialog;
 
 
+import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.widget.VideoView;
@@ -116,9 +125,26 @@ public class PlayerActivity extends AppCompatActivity {
         }
     };
 
+    private static class PushHandler extends Handler{
+        private WeakReference<PlayerActivity> mActivity;
+
+        public PushHandler(PlayerActivity activity) {
+            mActivity = new WeakReference<PlayerActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            PlayerActivity activity = mActivity.get();
+            if (activity != null) {
+                activity.exitPage();
+            }
+        }
+    }
+
     private VideoView mVideoView;
     private View mControlsView;
     private Button mBackBtn;
+    private Timer mTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,9 +199,40 @@ public class PlayerActivity extends AppCompatActivity {
     private void startPlay()  {
         if (mVideoView != null) {
             mVideoView.start();
+            // 开始轮询线程
+            startTimer();
         }
     }
 
+    private void startTimer() {
+        if (mTimer == null) {
+            final PushHandler mPushHandler = new PushHandler(this);
+            final ResultListener listener = new ResultListener() {
+                @Override
+                public void onSuccess(Object data) {
+                    mPushHandler.sendEmptyMessage(Constants.CODE_RESULT_STATE_SUCCESS);
+                }
+
+                @Override
+                public void onFail(int Code, String Msg) {
+                    // 轮询失败，啥都不做
+                }
+            };
+            final JSONObject request = new PushRequestBuilder().build();
+            final PushAnalyser analyser = new PushAnalyser(listener);
+            final GlobalNetworkHelper helper =
+                    new GlobalNetworkHelper(this, Constants.URL_GET_PUSH_COMMAND)
+                    .addRequest(request).addAnalyser(analyser);
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    helper.start();
+                }
+            };
+            mTimer = new Timer();
+            mTimer.schedule(task,0,Constants.PUSH_PERIOD);
+        }
+    }
     private void stopPlay() {
         if (mVideoView != null) {
             mVideoView.pause();
@@ -196,6 +253,9 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void exitPage() {
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
         stopPlay();
         finish();
     }
