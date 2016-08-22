@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@null"
@@ -10,8 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent" >
-
-
 
 
             <LinearLayout
@@ -67,7 +66,7 @@
                     android:visibility="visible" />
                 <LinearLayout
                     android:id="@+id/content_layout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@color/transparent"
@@ -113,11 +112,20 @@
                         android:textColor="#ff9933"
                         android:textSize="13dp" />
                 </LinearLayout>
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id="@+id/vip_image"
+                    fresco:roundAsCircle="true"
+                    fresco:actualImageScaleType="focusCrop"/>
             </LinearLayout>
 
+
+
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center_horizontal"
                 android:background="#19FFFFFF" />

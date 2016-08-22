@@ -44,7 +44,7 @@ public class LoginActivity extends Activity implements ResultListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		mUserText = (EditText)this.findViewById(R.id.QQ_number);
-		mUserText.setText("henryrhe"); // afeizaizhao
+		mUserText.setText("afeizaizhao"); // afeizaizhao
 		mPassText = (EditText)this.findViewById(R.id.QQ_password);
 		mPassText.setText("123456");
 		mLoginBtn = (Button) this.findViewById(R.id.btn_qqlogin);

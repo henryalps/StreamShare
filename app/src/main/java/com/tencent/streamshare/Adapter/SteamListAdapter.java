@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import com.tencent.streamshare.Model.User;
 import com.tencent.streamshare.R;
+import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.Utils.Util;
 
 /**
@@ -43,7 +44,7 @@ public class SteamListAdapter extends BaseAdapter {
 		TextView time;
 		View steamView;
 		SimpleDraweeView mPhoto;
-
+		SimpleDraweeView mIsVip;
 	}
 
 	@Override
@@ -82,6 +83,7 @@ public class SteamListAdapter extends BaseAdapter {
 			holder.count = (TextView) convertView.findViewById(R.id.tv_stem_count);
 			holder.time = (TextView) convertView.findViewById(R.id.tv_steam_time);
 			holder.mPhoto = (SimpleDraweeView) convertView.findViewById(R.id.steam_image);
+			holder.mIsVip = (SimpleDraweeView) convertView.findViewById(R.id.vip_image);
 		}
 		else {
 			holder = (ViewHolder) convertView.getTag();
@@ -111,6 +113,12 @@ public class SteamListAdapter extends BaseAdapter {
 												}
 											}
 		);
+		if (mStreamInfo.ismHasRight()) {
+			holder.mIsVip.setVisibility(View.VISIBLE);
+			holder.mIsVip.setImageURI(Constants.URI_IMG_VIP);
+		} else {
+			holder.mIsVip.setVisibility(View.GONE);
+		}
 		return convertView;
 
 	}

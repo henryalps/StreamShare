@@ -27,7 +27,8 @@
         android:text="分享"
         android:layout_alignParentRight="true"
         android:background="@drawable/btn_qqlogin_selector"
-        android:layout_below="@id/return_btn" />
+        android:layout_below="@id/return_btn"
+        android:visibility="gone"/>
 
     <!-- The primary full-screen view-->
 

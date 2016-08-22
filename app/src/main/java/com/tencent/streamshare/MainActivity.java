@@ -114,11 +114,9 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
         mUserProfile.setImageURI(uri);
         if(User.getInstance().ismIsVip())//是不是ｖｉｐ
          {
-             uri = Uri.parse("http://img1.114pifa.com/2045/t7TH9GDYG_1400207302.jpg");
-             mIsVip.setImageURI(uri);
+             mIsVip.setImageURI(Constants.URI_IMG_VIP);
          }else{
-            uri = Uri.parse("http://i.gtimg.cn/qqlive/images/20150210/defult_user.png");
-            mIsVip.setImageURI(uri);
+            mIsVip.setImageURI(Constants.URI_IMG_ORDINARY);
         }
     }
 
@@ -152,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             String barcodeStr = scanResult.getContents();
-            if (barcodeStr.startsWith(Constants.STR_PROTOCOL_HEADER)) {
+            if (!StringUtils.isEmpty(barcodeStr) && barcodeStr.startsWith(Constants.STR_PROTOCOL_HEADER)) {
                 final String token =  barcodeStr.substring(Constants.STR_PROTOCOL_HEADER.length(), barcodeStr.length());
                 new GlobalNetworkHelper(this, Constants.URL_ATTAIN_STREAM_ADDRESS)
                         .addRequest(new GetStreamAddressRequestBuilder(token).build())

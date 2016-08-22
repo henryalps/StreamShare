@@ -185,13 +185,16 @@ public class PlayerActivity extends AppCompatActivity {
                 exitPage();
             }
         });
-        Share = (Button)findViewById(R.id.user_share);
-        Share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doDialog();
-            }
-        });
+        if (User.getInstance().getmCurrentStream().ismCouldShare() || User.getInstance().ismIsVip()) {
+            Share = (Button)findViewById(R.id.user_share);
+            Share.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    doDialog();
+                }
+            });
+            Share.setVisibility(View.VISIBLE);
+        }
         userList =(ListView)this.findViewById(R.id.right_drawer);
 
         mControlsView = findViewById(R.id.fullscreen_content_controls);
