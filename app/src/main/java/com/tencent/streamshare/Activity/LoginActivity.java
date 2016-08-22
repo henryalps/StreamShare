@@ -48,9 +48,9 @@ public class LoginActivity extends Activity implements ResultListener{
 		mPassText = (EditText)this.findViewById(R.id.QQ_password);
 		mPassText.setText("123456");
 		mLoginBtn = (Button) this.findViewById(R.id.btn_qqlogin);
-		mLoginBtn.setFocusable(true);
-		mLoginBtn.setFocusableInTouchMode(true);
-		mLoginBtn.requestFocus();
+//		mLoginBtn.setFocusable(true);
+//		mLoginBtn.setFocusableInTouchMode(true);
+//		mLoginBtn.requestFocus();
 		mLoginBtn.setOnClickListener(new View.OnClickListener(){
 
 			public void onClick(View v){
@@ -83,8 +83,8 @@ public class LoginActivity extends Activity implements ResultListener{
 	@Override
 	public void onFail(int Code, String Msg) {
 		hideLoading();
-		TastyToast.makeText(this, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
-				"错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+//		TastyToast.makeText(this, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
+//				"错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
 	}
 
 	private void showLoading() {
@@ -100,7 +100,12 @@ public class LoginActivity extends Activity implements ResultListener{
 		// TODO Auto-generated method stub
 		if(keyCode == KeyEvent.KEYCODE_BACK)
 		{
-			for2Click();        //Double click the exit function call
+			if (findViewById(R.id.loading).getVisibility()==View.VISIBLE) {
+				GlobalNetworkHelper.stopAll();
+				hideLoading();
+			} else {
+				for2Click();        //Double click the exit function call
+			}
 		}
 		return false;
 	}

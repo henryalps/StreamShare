@@ -2,6 +2,7 @@ package com.tencent.streamshare.Network.RequestBuilder;
 
 import com.ihongqiqu.util.StringUtils;
 import com.tencent.streamshare.Model.User;
+import com.tencent.streamshare.Utils.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +17,7 @@ public class ExitStreamRequestBuilder extends BaseRequestBuilder {
         forReturn.put("streamid", User.getInstance().getmCurrentStream().getmId());
         String groupKey = User.getInstance().getGroupkey();
         if (StringUtils.isEmpty(groupKey)) {
-            groupKey = User.getInstance().getmId() + "+" +User.getInstance().getmCurrentStream().getmId();
+            groupKey = User.getInstance().getmId() + Constants.STR_CONNECTOR +User.getInstance().getmCurrentStream().getmId();
         }
         forReturn.put("groupkey", groupKey);
         return forReturn;

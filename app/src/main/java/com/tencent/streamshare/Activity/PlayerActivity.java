@@ -339,8 +339,8 @@ public class PlayerActivity extends AppCompatActivity {
 
                     @Override
                     public void onFail(int Code, String Msg) {
-                        TastyToast.makeText(PlayerActivity.this, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
-                                "错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+//                        TastyToast.makeText(PlayerActivity.this, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
+//                                "错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
                     }
                 }, (MyApplication) getApplication()))
         .start();

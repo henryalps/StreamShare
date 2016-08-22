@@ -45,7 +45,7 @@ public class Constants {
 
     public final static int PUSH_PERIOD = 2000; // 轮询周期2s
 
-    public final static String STR_CONNECTOR = "+"; //用这个符号连接用户id和流id
+    public final static String STR_CONNECTOR = "_"; //用这个符号连接用户id和流id
 
     public final static Uri URI_IMG_VIP = Uri.parse("http://img1.114pifa.com/2045/t7TH9GDYG_1400207302.jpg");
     public final static Uri URI_IMG_ORDINARY = Uri.parse("http://i.gtimg.cn/qqlive/images/20150210/defult_user.png");

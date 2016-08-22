@@ -5,16 +5,14 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
+import com.tencent.streamshare.R;
 
 /**
  * Created by zhaoyongfei on 2016/8/21.
  */
 public class MaskLoadingView extends RelativeLayout {
-    private View loading;
     public MaskLoadingView(Context context) {
         super(context);
         init(context);
@@ -31,10 +29,7 @@ public class MaskLoadingView extends RelativeLayout {
     }
 
     private void init(Context context) {
-        loading = new ProgressWheel(context);
-        ((ProgressWheel)loading).setBarColor(Color.parseColor("#FFA500"));
-        setBackgroundColor(Color.parseColor("#66666666"));
-       addView(loading);
+        inflate(context, R.layout.mask_layout, this);
     }
 
     public void showLoading() {

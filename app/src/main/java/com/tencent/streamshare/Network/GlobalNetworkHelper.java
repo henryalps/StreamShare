@@ -35,6 +35,7 @@ import okhttp3.Response;
  * 3. start 开始网络请求，开始请求后，无法继续添加request
  */
 public class GlobalNetworkHelper implements ResultListener{
+    static final Object TAG_CALL = new Object(); // 用来关闭所有的请求
     private Context mContext; // 需要统一的弹窗提醒
     private boolean mHasStarted = false; // 是否正在请求网络
     private boolean mNeedAnalyse = true; // 通用解析器会阻塞后面的解析器
@@ -81,6 +82,7 @@ public class GlobalNetworkHelper implements ResultListener{
         }
 
         builder = builder.url(mUrl);
+        builder.tag(TAG_CALL);
 
         for(JSONObject obj:mRequestArray) {
             Iterator<String> keys = obj.keys();
@@ -130,9 +132,13 @@ public class GlobalNetworkHelper implements ResultListener{
     @Override
     public void onFail(int Code, String Msg) {
         // 统一的Toast提醒
-        TastyToast.makeText(mContext, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
-                "错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+//        TastyToast.makeText(mContext, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
+//                "错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
         // 停止以后的解析器 TODO 实现不够优雅
         mNeedAnalyse = false;
+    }
+
+    public static void stopAll() {
+        OkHttpUtils.getInstance().cancelTag(TAG_CALL);
     }
 }
