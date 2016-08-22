@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.ihongqiqu.util.LogUtils;
 import com.tencent.streamshare.Adapter.UserListAdapter;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.tencent.streamshare.Model.BaseUser;
@@ -26,9 +27,11 @@ import com.tencent.streamshare.Network.GlobalNetworkHelper;
 import com.tencent.streamshare.Network.Listener.ResultListener;
 import com.tencent.streamshare.Network.RequestBuilder.ExitStreamRequestBuilder;
 import com.tencent.streamshare.Network.RequestBuilder.GetBarCodeBuilder;
+import com.tencent.streamshare.Network.RequestBuilder.GetUserListRequestBuilder;
 import com.tencent.streamshare.Network.RequestBuilder.PushRequestBuilder;
 import com.tencent.streamshare.Network.ResultAnalyser.ExitStreamAnalyser;
 import com.tencent.streamshare.Network.ResultAnalyser.GetBarCodeAnalyser;
+import com.tencent.streamshare.Network.ResultAnalyser.GetUserListAnalyser;
 import com.tencent.streamshare.Network.ResultAnalyser.PushAnalyser;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.Utils.Constants;
@@ -38,7 +41,6 @@ import com.tencent.streamshare.View.CustomDialog;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -141,6 +143,21 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
+    private static class UserListHandler extends  Handler {
+        private WeakReference<PlayerActivity> mActivity;
+
+        public UserListHandler(PlayerActivity activity) {
+            mActivity = new WeakReference<PlayerActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            LogUtils.d("henryrhe", "******A user list query has been successfully performed and send to front");
+            PlayerActivity activity = mActivity.get();
+            activity.updateUserList();
+        }
+    }
+
     private VideoView mVideoView;
     private View mControlsView;
     private Button mBackBtn;
@@ -206,8 +223,9 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void startTimer() {
         if (mTimer == null) {
+            // 1. 初始化push轮询
             final PushHandler mPushHandler = new PushHandler(this);
-            final ResultListener listener = new ResultListener() {
+            final ResultListener pushListener = new ResultListener() {
                 @Override
                 public void onSuccess(Object data) {
                     mPushHandler.sendEmptyMessage(Constants.CODE_RESULT_STATE_SUCCESS);
@@ -218,19 +236,48 @@ public class PlayerActivity extends AppCompatActivity {
                     // 轮询失败，啥都不做
                 }
             };
-            final JSONObject request = new PushRequestBuilder().build();
-            final PushAnalyser analyser = new PushAnalyser(listener);
-            final GlobalNetworkHelper helper =
+            final JSONObject pushRequest = new PushRequestBuilder().build();
+            final PushAnalyser pushAnalyser = new PushAnalyser(pushListener);
+            final GlobalNetworkHelper pushHelper =
                     new GlobalNetworkHelper(this, Constants.URL_GET_PUSH_COMMAND)
-                    .addRequest(request).addAnalyser(analyser);
-            TimerTask task = new TimerTask() {
+                    .addRequest(pushRequest).addAnalyser(pushAnalyser);
+
+            // 2. 初始化用户列表轮询
+            final UserListHandler mUserListHandler = new UserListHandler(this);
+            final ResultListener userListListener = new ResultListener() {
+                @Override
+                public void onSuccess(Object data) {
+                    LogUtils.i("henryrhe", "user list success");
+                    mUserListHandler.sendEmptyMessage(Constants.CODE_RESULT_STATE_SUCCESS);
+                }
+
+                @Override
+                public void onFail(int Code, String Msg) {
+                    // 轮询失败，啥都不做
+                }
+            };
+            final JSONObject userListRequest = new GetUserListRequestBuilder().build();
+            final GetUserListAnalyser userListAnalyser = new GetUserListAnalyser(userListListener);
+            final GlobalNetworkHelper userListHelper =
+                    new GlobalNetworkHelper(this, Constants.URL_GET_USER_LIST)
+                            .addRequest(userListRequest).addAnalyser(userListAnalyser);
+
+            // 3. 开始轮询
+            TimerTask pushTask = new TimerTask() {
                 @Override
                 public void run() {
-                    helper.start();
+                    pushHelper.start();
+                }
+            };
+            TimerTask userListTask = new TimerTask() {
+                @Override
+                public void run() {
+                    userListHelper.start();
                 }
             };
             mTimer = new Timer();
-            mTimer.schedule(task,0,Constants.PUSH_PERIOD);
+            mTimer.schedule(pushTask,0,Constants.PUSH_PERIOD);
+            mTimer.schedule(userListTask,0,Constants.PUSH_PERIOD);
         }
     }
     private void stopPlay() {
@@ -310,6 +357,18 @@ public class PlayerActivity extends AppCompatActivity {
         userList.setAdapter(mUserListAdapter);
         mUserListAdapter.notifyDataSetChanged();
 
+    }
+
+    public void updateUserList() {
+        if (mUserListAdapter != null) {
+            mUserListAdapter.updateList(User.getInstance().getmCurrentStream().getmSharingUser());
+            userList.setAdapter(mUserListAdapter);
+            mUserListAdapter.notifyDataSetChanged();
+        } else {
+            mUserListAdapter =new UserListAdapter(this,User.getInstance().getmCurrentStream().getmSharingUser());
+            userList.setAdapter(mUserListAdapter);
+            mUserListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

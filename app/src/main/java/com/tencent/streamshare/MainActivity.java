@@ -1,18 +1,12 @@
 package com.tencent.streamshare;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ListViewCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,7 +19,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.ihongqiqu.util.StringUtils;
 import com.sdsmdg.tastytoast.TastyToast;
-import com.tencent.streamshare.Activity.LoginActivity;
 import com.tencent.streamshare.Activity.PlayerActivity;
 import com.tencent.streamshare.Adapter.SteamListAdapter;
 import com.tencent.streamshare.Model.StreamInfo;
@@ -37,7 +30,6 @@ import com.tencent.streamshare.Network.RequestBuilder.StreamListRequestBuilder;
 import com.tencent.streamshare.Network.ResultAnalyser.GetStreamAddressAnalyser;
 import com.tencent.streamshare.Network.ResultAnalyser.StreamListResultAnalyser;
 import com.tencent.streamshare.Utils.Constants;
-import com.tencent.streamshare.Utils.QRCodeUtil;
 import com.tencent.streamshare.View.StreamUrlDialog;
 
 import java.util.ArrayList;
@@ -131,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
         IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanResult != null) {
             String barcodeStr = scanResult.getContents();
-            if (barcodeStr.startsWith(Constants.PROTOCOL_HEADER)) {
-                final String token =  barcodeStr.substring(Constants.PROTOCOL_HEADER.length(), barcodeStr.length());
+            if (barcodeStr.startsWith(Constants.STR_PROTOCOL_HEADER)) {
+                final String token =  barcodeStr.substring(Constants.STR_PROTOCOL_HEADER.length(), barcodeStr.length());
                 new GlobalNetworkHelper(this, Constants.URL_ATTAIN_STREAM_ADDRESS)
                         .addRequest(new GetStreamAddressRequestBuilder(token).build())
                         .addAnalyser(new GetStreamAddressAnalyser(new ResultListener() {

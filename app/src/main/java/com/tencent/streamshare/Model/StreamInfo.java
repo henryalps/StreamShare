@@ -20,7 +20,6 @@ public class StreamInfo {
     private int mStatus;
 
     private boolean mCouldShare = false;
-    private int mShareNum = 0;
     private ArrayList<BaseUser> mSharingUser; // 此流分享给的用户
 
     public String getmId() {
@@ -93,5 +92,13 @@ public class StreamInfo {
 
     public void setmCouldShare(boolean mCouldShare) {
         this.mCouldShare = mCouldShare;
+    }
+
+    public ArrayList<BaseUser> getmSharingUser() {
+        return mSharingUser;
+    }
+
+    public void setmSharingUser(ArrayList<BaseUser> mSharingUser) {
+        this.mSharingUser = mSharingUser;
     }
 }

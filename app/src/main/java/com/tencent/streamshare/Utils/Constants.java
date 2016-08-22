@@ -16,8 +16,12 @@ public class Constants {
             "http://1.tv.ptyg.gitv.tv/i-tvbin/qtv_video/omgtrain/get_stream_addr";
     public final static String URL_GET_PUSH_COMMAND =
             "http://1.tv.ptyg.gitv.tv/i-tvbin/qtv_video/omgtrain/get_push_command";
+    public final static String URL_GET_USER_LIST =
+            "http://1.tv.ptyg.gitv.tv/i-tvbin/qtv_video/omgtrain/get_user_list";
     public final static String URL_EXIT_STREAM =
             "http://1.tv.ptyg.gitv.tv/i-tvbin/qtv_video/omgtrain/user_exit_stream";
+
+    public final static String URL_DEFAULT_IMAGE = ""; // 统一的头像url
 
     public final static int CODE_RESULT_RET_SUCCESS = 0;
 //    public final static int CODE_RESULT_RET_FAIL =1;
@@ -35,7 +39,10 @@ public class Constants {
     public final static int CODE_LOGIN_SUCCESS = 0;
     public final static int CODE_LOGIN_IS_VIP = 1;
 
-    public final static String PROTOCOL_HEADER = "OMG_SIX";
+    public final static String STR_PROTOCOL_HEADER = "OMG_SIX";
 
-    public final static int PUSH_PERIOD = 200; // 轮询周期200ms
+    public final static int PUSH_PERIOD = 1000; // 轮询周期1s
+
+    public final static String STR_CONNECTOR = "+"; //用这个符号连接用户id和流id
+
 }
