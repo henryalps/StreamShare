@@ -17,6 +17,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.ihongqiqu.util.LogUtils;
 import com.ihongqiqu.util.StringUtils;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.tencent.streamshare.Activity.PlayerActivity;
@@ -33,6 +34,8 @@ import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.View.StreamUrlDialog;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements StreamUrlDialog.PositiveBtnListener, ResultListener{
 
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
     private ListView mSteamList;
     private SteamListAdapter mSteamListAdapter;
     private Button Exit;
+    private Timer mTimer;
+    private TimerTask mTimerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +117,30 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
             uri = Uri.parse("http://i.gtimg.cn/qqlive/images/20150210/defult_user.png");
             mIsVip.setImageURI(uri);
         }
+    }
 
-        new GlobalNetworkHelper(this, Constants.URL_LIVE_STREAM_INFO, Constants.REQ_TYPE_GET)
-                .addRequest(new StreamListRequestBuilder().build())
-                .addAnalyser(new StreamListResultAnalyser(this))
-                .start();
+    private void startQueryList() {
+        if (mTimer == null) {
+            mTimer = new Timer();
+        }
+        if (mTimerTask == null) {
+            final GlobalNetworkHelper helper = new GlobalNetworkHelper(this, Constants.URL_LIVE_STREAM_INFO, Constants.REQ_TYPE_GET)
+                    .addRequest(new StreamListRequestBuilder().build())
+                    .addAnalyser(new StreamListResultAnalyser(this));
+            mTimerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    helper.start();
+                }
+            };
+        }
+        mTimer.schedule(mTimerTask, 0, 1000);
+    }
+
+    private void stopQueryList() {
+        if (mTimer != null) {
+            mTimer.cancel();
+        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -149,13 +173,31 @@ public class MainActivity extends AppCompatActivity implements StreamUrlDialog.P
 
     @Override
     public void onSuccess(Object data) {
-        mSteamListAdapter = new SteamListAdapter(this, (ArrayList<StreamInfo>) data);
-        mSteamList.setAdapter(mSteamListAdapter);
-        mSteamListAdapter.notifyDataSetChanged();
+        LogUtils.d("henryrhe", "******A stream list query has been successfully performed and sent to front");
+        if (mSteamListAdapter == null) {
+            mSteamListAdapter = new SteamListAdapter(this, (ArrayList<StreamInfo>) data);
+            mSteamList.setAdapter(mSteamListAdapter);
+            mSteamListAdapter.notifyDataSetChanged();
+        } else {
+            mSteamListAdapter.updateList((ArrayList<StreamInfo>) data);
+            mSteamListAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void onFail(int Code, String Msg) {
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopQueryList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startQueryList();
     }
 }

@@ -61,7 +61,10 @@ public class SteamListAdapter extends BaseAdapter {
 	}
 
 
-
+	public void updateList(ArrayList<StreamInfo> data){
+		this.mData =  data;
+		notifyDataSetChanged();
+	}
 
 
 	@Override

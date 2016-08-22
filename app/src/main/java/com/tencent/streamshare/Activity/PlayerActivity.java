@@ -152,7 +152,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         @Override
         public void handleMessage(Message msg) {
-            LogUtils.d("henryrhe", "******A user list query has been successfully performed and send to front");
+            LogUtils.d("henryrhe", "******A user list query has been successfully performed and sent to front");
             PlayerActivity activity = mActivity.get();
             activity.updateUserList();
         }
