@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.google.zxing.common.StringUtils;
+import com.ihongqiqu.util.LogUtils;
 import com.sdsmdg.tastytoast.TastyToast;
 import com.tencent.streamshare.Network.Listener.ResultListener;
 import com.tencent.streamshare.Network.RequestBuilder.CommonRequestBuilder;
@@ -82,7 +83,7 @@ public class GlobalNetworkHelper implements ResultListener{
         }
 
         builder = builder.url(mUrl);
-        builder.tag(TAG_CALL);
+//        builder.tag(TAG_CALL);
 
         for(JSONObject obj:mRequestArray) {
             Iterator<String> keys = obj.keys();
@@ -100,6 +101,7 @@ public class GlobalNetworkHelper implements ResultListener{
             }
         }
 
+        LogUtils.d("henryrhe:base", builder.toString());
 
         builder.build().execute(new StringCallback() {
             @Override
@@ -135,7 +137,7 @@ public class GlobalNetworkHelper implements ResultListener{
 //        TastyToast.makeText(mContext, com.ihongqiqu.util.StringUtils.isEmpty(Msg) ?
 //                "错误码：" + Code : Msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
         // 停止以后的解析器 TODO 实现不够优雅
-        mNeedAnalyse = false;
+//        mNeedAnalyse = false;
     }
 
     public static void stopAll() {

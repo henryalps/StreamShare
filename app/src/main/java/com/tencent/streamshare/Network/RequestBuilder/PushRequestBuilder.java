@@ -12,6 +12,7 @@ public class PushRequestBuilder extends BaseRequestBuilder {
     @Override
     protected JSONObject doBuilder(JSONObject forReturn) throws JSONException {
         forReturn.put("userid", User.getInstance().getmId());
+        forReturn.put("streamid", User.getInstance().getmCurrentStream().getmId());
         return forReturn;
     }
 }

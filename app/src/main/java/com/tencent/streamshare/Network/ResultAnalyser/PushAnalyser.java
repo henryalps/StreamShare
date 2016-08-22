@@ -16,7 +16,7 @@ public class PushAnalyser extends BaseAnalyser {
 
     @Override
     protected boolean doAnalysis(JSONObject data) {
-        LogUtils.d("henryrhe", "******A push query has been successfully performed");
+        LogUtils.d("henryrhe", "******A push query has been successfully performed. command data is " + data.toString());
         if (JSONUtils.getInt(data, "command", 0) == 1) { // 简化处理，认为只有在命令号为1时才对应请求成功
             mListener.onSuccess(JSONUtils.getString(data, "content", ""));
             return true;

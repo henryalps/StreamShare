@@ -23,7 +23,6 @@ public class GetUserListAnalyser extends BaseAnalyser {
 
     @Override
     protected boolean doAnalysis(JSONObject data) {
-        LogUtils.d("henryrhe", "******A user list query has been successfully performed");
         JSONArray users = JSONUtils.getJSONArray(data, "users", new JSONArray());
         ArrayList<BaseUser> list = new ArrayList<>();
         for (int i = 1; i < list.size(); i++) {
@@ -33,6 +32,7 @@ public class GetUserListAnalyser extends BaseAnalyser {
                 ex.printStackTrace();
             }
         }
+        LogUtils.d("henryrhe", "******A user list query has been successfully performed , list size is " + list.size() + " data is " + data.toString());
         User.getInstance().getmCurrentStream().setmSharingUser(list);
         mListener.onSuccess(data);
         return true;

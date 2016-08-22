@@ -41,7 +41,7 @@
                 <Button
                     android:id="@+id/titlebar_camera"
                     android:layout_width="36dp"
-                    android:layout_height="20dp"
+                    android:layout_height="36dp"
                     android:layout_gravity="center_vertical"
                     android:background="@android:drawable/ic_menu_camera"
                     android:shadowColor="@android:color/darker_gray"
