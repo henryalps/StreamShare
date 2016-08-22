@@ -43,7 +43,7 @@ import io.vov.vitamio.widget.VideoView;
  */
 public class PlayerActivity extends AppCompatActivity {
 
-    private Button WatchUser,Share;
+    private Button Share;
     private DrawerLayout mDrawerLayout ;
     private ListView userList;
     private UserListAdapter mUserListAdapter;
@@ -142,14 +142,6 @@ public class PlayerActivity extends AppCompatActivity {
                 exitPage();
             }
         });
-        WatchUser = (Button)findViewById(R.id.return_btn) ;
-        WatchUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(Gravity.RIGHT);
-
-            }
-        });
         Share = (Button)findViewById(R.id.user_share);
         Share.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,18 +180,17 @@ public class PlayerActivity extends AppCompatActivity {
         if (mVideoView != null) {
             mVideoView.pause();
         }
-//        User.getInstance().setmCurrentStream(new StreamInfo()); // 退出播放流时必须清空当前播放流信息
         new GlobalNetworkHelper(this, Constants.URL_EXIT_STREAM)
                 .addRequest(new ExitStreamRequestBuilder().build())
                 .addAnalyser(new ExitStreamAnalyser(new ResultListener() {
                     @Override
                     public void onSuccess(Object data) {
-
+                        User.getInstance().setmCurrentStream(new StreamInfo()); // 退出播放流时必须清空当前播放流信息
                     }
 
                     @Override
                     public void onFail(int Code, String Msg) {
-
+                        User.getInstance().setmCurrentStream(new StreamInfo()); // 退出播放流时必须清空当前播放流信息
                     }
                 })).start();
     }

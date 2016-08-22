@@ -4,16 +4,17 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.wang.avi.AVLoadingIndicatorView;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 /**
  * Created by zhaoyongfei on 2016/8/21.
  */
 public class MaskLoadingView extends RelativeLayout {
-    private AVLoadingIndicatorView loading;
+    private View loading;
     public MaskLoadingView(Context context) {
         super(context);
         init(context);
@@ -30,20 +31,17 @@ public class MaskLoadingView extends RelativeLayout {
     }
 
     private void init(Context context) {
-        loading = new AVLoadingIndicatorView(context);
+        loading = new ProgressWheel(context);
+        ((ProgressWheel)loading).setBarColor(Color.parseColor("#FFA500"));
         setBackgroundColor(Color.parseColor("#66666666"));
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.addRule(CENTER_IN_PARENT);
-        addView(loading,params);
+       addView(loading);
     }
 
     public void showLoading() {
         setVisibility(VISIBLE);
-        loading.smoothToShow();
     }
 
     public void dismissLoading() {
-        loading.smoothToHide();
         setVisibility(GONE);
     }
 

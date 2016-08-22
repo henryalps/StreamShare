@@ -17,8 +17,6 @@ import com.tencent.streamshare.Network.ResultAnalyser.UserLoginAnalyser;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.View.MaskLoadingView;
-import com.wang.avi.AVLoadingIndicatorView;
-
 /**
  * Created by Administrator on 2016/8/21.
  */
