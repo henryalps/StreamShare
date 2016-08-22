@@ -1,8 +1,10 @@
 package com.tencent.streamshare.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,10 @@ import com.tencent.streamshare.Network.ResultAnalyser.UserLoginAnalyser;
 import com.tencent.streamshare.R;
 import com.tencent.streamshare.Utils.Constants;
 import com.tencent.streamshare.View.MaskLoadingView;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Administrator on 2016/8/21.
  */
@@ -25,6 +31,13 @@ public class LoginActivity extends Activity implements ResultListener{
 	private EditText mUserText,mPassText;
 	private String mUserid,mPasswd;
 	private Button mLoginBtn;
+	public static void start(Activity activity) {
+		LoginActivity loginActivity = new LoginActivity();
+		Intent intent = new Intent();
+		intent.setClass(activity, LoginActivity.class);
+		activity.startActivity(intent);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -64,6 +77,7 @@ public class LoginActivity extends Activity implements ResultListener{
 		Intent intent = new Intent();
 		intent.setClass(this, MainActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 	@Override
@@ -79,5 +93,37 @@ public class LoginActivity extends Activity implements ResultListener{
 
 	private void hideLoading() {
 		((MaskLoadingView)findViewById(R.id.loading)).dismissLoading();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			for2Click();        //Double click the exit function call
+		}
+		return false;
+	}
+	private static Boolean isExit = false;
+
+	private void for2Click() {
+		Timer tExit = null;
+		if (isExit == false) {
+			isExit = true; // Ready to quit
+			TastyToast.makeText(this, "再点返回键退出", TastyToast.LENGTH_LONG, TastyToast.INFO);
+			tExit = new Timer();
+			tExit.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					isExit = false; // Cancel to exit
+				}
+			}, 2000); // 2 seconds
+
+		} else {
+			finish();
+			System.exit(0);//finish();
+			int pid = android.os.Process.myPid();
+			android.os.Process.killProcess(pid);
+		}
 	}
 }
