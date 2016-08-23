@@ -137,6 +137,7 @@ public class PlayerActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             PlayerActivity activity = mActivity.get();
+            TastyToast.makeText(activity, "噢噢~分享给你的人结束了这场直播", TastyToast.LENGTH_LONG, TastyToast.INFO);
             if (activity != null) {
                 activity.exitPage();
             }

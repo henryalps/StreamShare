@@ -24,13 +24,19 @@ public class GetUserListAnalyser extends BaseAnalyser {
     @Override
     protected boolean doAnalysis(JSONObject data) {
         JSONArray users = JSONUtils.getJSONArray(data, "users", new JSONArray());
+        int x = JSONUtils.getInt(data, "total", 0);
         ArrayList<BaseUser> list = new ArrayList<>();
-        for (int i = 1; i < list.size(); i++) {
+        if (x > 0) {
+
+
+
+        for (int i = 0; i <= x; i++) {
             try {
                 list.add(convertJsonNode2User(users.getJSONObject(i)));
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
+        }
         }
         LogUtils.d("henryrhe", "******A user list query has been successfully performed , list size is " + list.size() + " data is " + data.toString());
         User.getInstance().getmCurrentStream().setmSharingUser(list);
@@ -41,8 +47,9 @@ public class GetUserListAnalyser extends BaseAnalyser {
     private BaseUser convertJsonNode2User(JSONObject node) {
         BaseUser forReturn = new BaseUser();
         forReturn.setmHeadImagUrl(JSONUtils.getString(node, "head_img_url", Constants.URL_DEFAULT_IMAGE));
-        forReturn.setmId(JSONUtils.getString(node, "userid", ""));
         forReturn.setmNickName(JSONUtils.getString(node, "name", "guest"));
+        forReturn.setmId(JSONUtils.getString(node, "userid", ""));
+
         return forReturn;
     }
 }
